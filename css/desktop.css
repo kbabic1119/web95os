@@ -1,0 +1,390 @@
+/* ============================================
+   Desktop & Taskbar
+   ============================================ */
+
+.desktop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--win95-desktop) url('../img/win95-bg.jpg') center center no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  /* Windows are positioned absolute relative to desktop */
+  isolation: isolate;
+}
+
+.desktop.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ============================================
+   Desktop Icons
+   ============================================ */
+
+.desktop-icons {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 16px;
+  max-height: calc(100vh - 36px);
+  z-index: 1;
+  position: relative;
+}
+
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 86px;
+  padding: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  outline: none;
+  position: relative;
+}
+
+.desktop-icon:hover .icon-label {
+  text-decoration: underline;
+}
+
+.desktop-icon.selected {
+  border: 1px dotted var(--win95-white);
+}
+
+.desktop-icon.selected .icon-label {
+  background: var(--win95-titlebar);
+  color: var(--win95-white);
+}
+
+.desktop-icon .icon-img {
+  position: relative;
+}
+
+.icon-label {
+  color: var(--win95-white);
+  text-align: center;
+  font-size: 12px;
+  padding: 2px 4px;
+  margin-top: 4px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+  word-wrap: break-word;
+  max-width: 86px;
+}
+
+.desktop-icon.selected .icon-label {
+  text-shadow: none;
+}
+
+/* ============================================
+   Taskbar
+   ============================================ */
+
+.taskbar {
+  height: 36px;
+  background: var(--win95-face);
+  border-top: 2px solid var(--win95-white);
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  gap: 2px;
+  z-index: 9000;
+  position: relative;
+}
+
+/* Start Button */
+.start-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  height: 28px;
+  background: var(--win95-face);
+  border-top: 2px solid var(--win95-white);
+  border-left: 2px solid var(--win95-white);
+  border-bottom: 2px solid var(--win95-darker);
+  border-right: 2px solid var(--win95-darker);
+  box-shadow: inset 1px 1px 0 var(--win95-light), inset -1px -1px 0 var(--win95-dark);
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.start-btn:active,
+.start-btn.active {
+  border-top: 2px solid var(--win95-darker);
+  border-left: 2px solid var(--win95-darker);
+  border-bottom: 2px solid var(--win95-white);
+  border-right: 2px solid var(--win95-white);
+  box-shadow: inset 1px 1px 0 var(--win95-dark), inset -1px -1px 0 var(--win95-light);
+}
+
+.start-logo {
+  width: 16px;
+  height: 16px;
+  background:
+    linear-gradient(#FF0000 0 0) 0 0 / 7px 7px,
+    linear-gradient(#00FF00 0 0) 8px 0 / 7px 7px,
+    linear-gradient(#0000FF 0 0) 0 8px / 7px 7px,
+    linear-gradient(#FFFF00 0 0) 8px 8px / 7px 7px;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+
+/* Start Menu */
+.start-menu {
+  position: absolute;
+  bottom: 36px;
+  left: 2px;
+  width: 200px;
+  background: var(--win95-face);
+  border-top: 2px solid var(--win95-white);
+  border-left: 2px solid var(--win95-white);
+  border-bottom: 2px solid var(--win95-darker);
+  border-right: 2px solid var(--win95-darker);
+  box-shadow: inset 1px 1px 0 var(--win95-light), inset -1px -1px 0 var(--win95-dark);
+  z-index: 9500;
+  display: flex;
+}
+
+.start-menu-sidebar {
+  width: 24px;
+  background: linear-gradient(to top, var(--win95-titlebar), #1084D0);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 4px;
+}
+
+.start-menu-sidebar-text {
+  color: var(--win95-white);
+  font-weight: bold;
+  font-size: 14px;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  letter-spacing: 1px;
+}
+
+.start-menu-items {
+  flex: 1;
+  padding: 2px;
+}
+
+.start-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.start-menu-item:hover {
+  background: var(--win95-titlebar);
+  color: var(--win95-white);
+}
+
+.start-menu-separator {
+  height: 1px;
+  background: var(--win95-dark);
+  margin: 2px 4px;
+  box-shadow: 0 1px 0 var(--win95-white);
+}
+
+/* Taskbar Divider */
+.taskbar-divider {
+  width: 2px;
+  height: 24px;
+  border-left: 1px solid var(--win95-dark);
+  border-right: 1px solid var(--win95-white);
+  margin: 0 2px;
+}
+
+/* Taskbar Windows Area */
+.taskbar-windows {
+  flex: 1;
+  display: flex;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.taskbar-window-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  height: 24px;
+  max-width: 160px;
+  background: var(--win95-face);
+  border-top: 2px solid var(--win95-darker);
+  border-left: 2px solid var(--win95-darker);
+  border-bottom: 2px solid var(--win95-white);
+  border-right: 2px solid var(--win95-white);
+  box-shadow: inset 1px 1px 0 var(--win95-dark), inset -1px -1px 0 var(--win95-light);
+  font-size: 11px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* Taskbar Clock/Tray */
+.taskbar-tray {
+  display: flex;
+  align-items: center;
+  padding: 2px 8px;
+  height: 24px;
+  border-top: 2px solid var(--win95-dark);
+  border-left: 2px solid var(--win95-dark);
+  border-bottom: 2px solid var(--win95-white);
+  border-right: 2px solid var(--win95-white);
+  margin-left: auto;
+}
+
+.taskbar-clock {
+  font-size: 11px;
+  color: var(--win95-black);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================
+   CRT Scanlines Overlay
+   ============================================ */
+
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 8999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(0, 0, 0, 0.03) 1px,
+    rgba(0, 0, 0, 0.03) 2px
+  );
+}
+
+/* ============================================
+   Clippy Assistant
+   ============================================ */
+
+.clippy {
+  position: fixed;
+  bottom: 50px;
+  right: 20px;
+  z-index: 8998;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  animation: clippySlideIn 0.5s ease-out forwards;
+}
+
+@keyframes clippySlideIn {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.clippy-bubble {
+  background: #FFFFCC;
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 6px;
+  max-width: 220px;
+  position: relative;
+  font-size: 12px;
+  line-height: 1.5;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.clippy-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  right: 20px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 10px solid #FFFFCC;
+}
+
+.clippy-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -13px;
+  right: 18px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 13px solid #000;
+}
+
+.clippy-bubble-text {
+  color: #000;
+}
+
+.clippy-bubble-close {
+  position: absolute;
+  top: 2px;
+  right: 6px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+  line-height: 1;
+}
+
+.clippy-bubble-close:hover {
+  color: #000;
+}
+
+.clippy-character {
+  font-size: 48px;
+  cursor: pointer;
+  animation: clippyIdle 3s ease-in-out infinite;
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes clippyIdle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(5deg) scale(1.05); }
+  75% { transform: rotate(-5deg) scale(1.05); }
+}
+
+@keyframes clippyWobble {
+  0%   { transform: rotate(0deg) scale(1); }
+  20%  { transform: rotate(-15deg) scale(1.15); }
+  40%  { transform: rotate(15deg) scale(1.15); }
+  60%  { transform: rotate(-10deg) scale(1.1); }
+  80%  { transform: rotate(8deg) scale(1.05); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+.clippy-character.clippy-wobble {
+  animation: clippyWobble 0.6s ease forwards !important;
+}

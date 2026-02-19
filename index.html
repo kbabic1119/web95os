@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kazim | Portfolio 95</title>
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23008080'/%3E%3Crect x='2' y='2' width='5' height='5' fill='%23FF0000'/%3E%3Crect x='9' y='2' width='5' height='5' fill='%2300FF00'/%3E%3Crect x='2' y='9' width='5' height='5' fill='%230000FF'/%3E%3Crect x='9' y='9' width='5' height='5' fill='%23FFFF00'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/win95.css">
+  <link rel="stylesheet" href="css/boot.css">
+  <link rel="stylesheet" href="css/desktop.css">
+  <link rel="stylesheet" href="css/windows.css">
+  <link rel="stylesheet" href="css/terminal.css">
+  <link rel="stylesheet" href="css/pong.css">
+</head>
+
+<body>
+
+  <!-- ========== BOOT SCREEN (BIOS POST) ========== -->
+  <div id="boot-screen" class="boot-screen">
+    <div class="boot-text" id="boot-text"></div>
+    <div class="boot-progress-container" id="boot-progress-container">
+      <div class="boot-progress-bar" id="boot-progress-bar"></div>
+    </div>
+    <div class="boot-skip">Press any key or click to skip</div>
+  </div>
+
+  <!-- ========== BSOD SCREEN ========== -->
+  <div id="bsod-screen" class="bsod-screen hidden">
+    <div class="bsod-content">
+      <p class="bsod-title">Blue Screen of Death</p>
+      <br><br>
+      <p class="bsod-body">An error has occurred. To continue:</p>
+      <br>
+      <p class="bsod-body">Press Enter to return to Windows, or</p>
+      <br>
+      <p class="bsod-body">Press CTRL+ALT+DEL to restart your computer. If you do this,</p>
+      <p class="bsod-body">you will lose any unsaved information in all open applications.</p>
+      <br>
+      <p class="bsod-body">Error: 0E : 0164 : BFF9A6D4</p>
+      <br><br>
+      <p class="bsod-continue">Press any key to continue <span class="bsod-blink">_</span></p>
+    </div>
+  </div>
+
+  <!-- ========== MATRIX RAIN CANVAS ========== -->
+  <canvas id="matrix-canvas" class="matrix-canvas hidden"></canvas>
+
+  <!-- ========== DESKTOP ========== -->
+  <div id="desktop" class="desktop hidden">
+
+    <!-- Desktop Icons -->
+    <div class="desktop-icons">
+      <div class="desktop-icon" data-window="projects" tabindex="0">
+        <div class="icon-img">🖥️</div>
+        <span class="icon-label">My Computer</span>
+      </div>
+      <div class="desktop-icon" data-window="contact" tabindex="0">
+        <div class="icon-img">📧</div>
+        <span class="icon-label">Contact</span>
+      </div>
+      <div class="desktop-icon" data-window="terminal" tabindex="0">
+        <div class="icon-img">💻</div>
+        <span class="icon-label">MS-DOS Prompt</span>
+      </div>
+      <div class="desktop-icon" data-window="pong" tabindex="0">
+        <div class="icon-img">🎮</div>
+        <span class="icon-label">Pong.exe</span>
+      </div>
+      <div class="desktop-icon" data-window="recycle" tabindex="0">
+        <div class="icon-img">🗑️</div>
+        <span class="icon-label">Recycle Bin</span>
+      </div>
+      <div class="desktop-icon" data-window="secrets" tabindex="0">
+        <div class="icon-img">🔒</div>
+        <span class="icon-label">Secrets.txt</span>
+      </div>
+      <div class="desktop-icon" data-action="bsod" tabindex="0">
+        <div class="icon-img">💀</div>
+        <span class="icon-label">Terminate.exe</span>
+      </div>
+      <div class="desktop-icon" data-window="ie" tabindex="0">
+        <div class="icon-img">🌐</div>
+        <span class="icon-label">Internet Explorer</span>
+      </div>
+      <div class="desktop-icon" data-window="minesweeper" tabindex="0">
+        <div class="icon-img">💣</div>
+        <span class="icon-label">Minesweeper</span>
+      </div>
+    </div>
+
+    <!-- ========== WINDOWS ========== -->
+
+    <!-- My Computer / Explorer Window -->
+    <div class="win95-window hidden" id="window-projects" data-title="My Computer" style="width:660px;">
+      <div class="window-titlebar">
+        <div class="window-titlebar-icon">🖥️</div>
+        <span class="window-titlebar-text" id="explorer-title">My Computer</span>
+        <button class="window-minimize-btn" aria-label="Minimize">_</button>
+        <button class="window-close-btn" aria-label="Close">×</button>
+      </div>
+      <div class="window-menubar">
+        <span class="menu-item">File</span>
+        <span class="menu-item">Edit</span>
+        <span class="menu-item">View</span>
+        <span class="menu-item">Go</span>
+        <span class="menu-item">Help</span>
+      </div>
+      <div class="explorer-toolbar">
+        <button class="ie-nav-btn" id="explorer-back" title="Back" disabled>&#9664;</button>
+        <button class="ie-nav-btn" id="explorer-forward" title="Forward" disabled>&#9654;</button>
+        <div class="ie-address-bar">
+          <span class="ie-address-label">Address</span>
+          <input type="text" class="win95-input ie-address-input" id="explorer-address" value="C:\" readonly>
+        </div>
+      </div>
+      <div class="window-body explorer-body">
+        <div class="window-loading" id="loading-projects">
+          <div class="loading-text">Loading...</div>
+          <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+          </div>
+        </div>
+        <div class="window-content hidden" id="content-projects">
+          <div class="explorer-layout">
+            <div class="explorer-tree" id="explorer-tree">
+              <div class="tree-item tree-root selected" data-path="root">
+                <span class="tree-icon">🖥️</span> My Computer
+              </div>
+              <div class="tree-item tree-child" data-path="programs" style="padding-left:20px">
+                <span class="tree-icon">📁</span> Program Files
+              </div>
+              <div class="tree-item tree-child" data-path="documents" style="padding-left:20px">
+                <span class="tree-icon">📁</span> My Documents
+              </div>
+              <div class="tree-item tree-child" data-path="desktop" style="padding-left:20px">
+                <span class="tree-icon">📁</span> Desktop
+              </div>
+              <div class="tree-item tree-child" data-path="projects" style="padding-left:20px">
+                <span class="tree-icon">📁</span> Projects
+              </div>
+            </div>
+            <div class="explorer-content" id="explorer-content"></div>
+          </div>
+        </div>
+      </div>
+      <div class="window-statusbar">
+        <span id="explorer-status">4 object(s)</span>
+      </div>
+    </div>
+
+    <!-- Contact Window -->
+    <div class="win95-window hidden" id="window-contact" data-title="Contact">
+      <div class="window-titlebar">
+        <div class="window-titlebar-icon">📧</div>
+        <span class="window-titlebar-text">Contact</span>
+        <button class="window-minimize-btn" aria-label="Minimize">_</button>
+        <button class="window-close-btn" aria-label="Close">×</button>
+      </div>
+      <div class="window-menubar">
+        <span class="menu-item">File</span>
+        <span class="menu-item">Edit</span>
+        <span class="menu-item">Help</span>
+      </div>
+      <div class="window-body">
+        <div class="window-loading" id="loading-contact">
+          <div class="loading-text">Loading...</div>
+          <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+          </div>
+        </div>
+        <div class="window-content hidden" id="content-contact">
+          <div class="contact-content">
+            <div class="contact-info">
+              <div class="contact-row">
+                <span class="contact-label">Email:</span>
+                <a href="mailto:kbabic1119@gmail.com" class="contact-link">kbabic1119@gmail.com</a>
+              </div>
+              <div class="contact-row">
+                <span class="contact-label">Location:</span>
+                <span>Sweden</span>
+              </div>
+              <div class="contact-row">
+                <span class="contact-label">GitHub:</span>
+                <a href="#" class="contact-link">github.com/yourusername</a>
+              </div>
+              <div class="contact-row">
+                <span class="contact-label">LinkedIn:</span>
+                <a href="#" class="contact-link">linkedin.com/in/yourusername</a>
+              </div>
+            </div>
+            <hr class="win95-hr">
+            <div class="contact-form">
+              <div class="form-group">
+                <label class="win95-label">Name:</label>
+                <input type="text" class="win95-input" placeholder="Your name">
+              </div>
+              <div class="form-group">
+                <label class="win95-label">Email:</label>
+                <input type="email" class="win95-input" placeholder="Your email">
+              </div>
+              <div class="form-group">
+                <label class="win95-label">Message:</label>
+                <textarea class="win95-textarea" rows="4" placeholder="Your message"></textarea>
+              </div>
+              <button class="win95-btn">Send Message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="window-statusbar">
+        <span>Ready</span>
+      </div>
+    </div>
+
+    <!-- Recycle Bin Window -->
+    <div class="win95-window hidden" id="window-recycle" data-title="Recycle Bin">
+      <div class="window-titlebar">
+        <div class="window-titlebar-icon">🗑️</div>
+        <span class="window-titlebar-text">Recycle Bin</span>
+        <button class="window-minimize-btn" aria-label="Minimize">_</button>
+        <button class="window-close-btn" aria-label="Close">×</button>
+      </div>
+      <div class="window-menubar">
+        <span class="menu-item">File</span>
+        <span class="menu-item">Edit</span>
+        <span class="menu-item">View</span>
+        <span class="menu-item">Help</span>
+      </div>
+      <div class="window-body">
+        <div class="window-loading" id="loading-recycle">
+          <div class="loading-text">Scanning for bugs...</div>
+          <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+          </div>
+        </div>
+        <div class="window-content hidden" id="content-recycle">
+          <div class="recycle-content">
+            <div class="recycle-icon-large"></div>
+            <p class="recycle-message">This portfolio contains <strong>0 bugs</strong>. ;)</p>
+            <p class="recycle-sub">The Recycle Bin is empty.</p>
+            <br>
+            <button class="win95-btn" onclick="this.textContent='Still nothing here!'">Empty Recycle Bin</button>
+          </div>
+        </div>
+      </div>
+      <div class="window-statusbar">
+        <span>0 object(s)</span>
+      </div>
+    </div>
+
+    <!-- Secrets.txt Window -->
+    <div class="win95-window hidden" id="window-secrets" data-title="Secrets.txt - Notepad">
+      <div class="window-titlebar">
+        <div class="window-titlebar-icon">🔒</div>
+        <span class="window-titlebar-text">Secrets.txt - Notepad</span>
+        <button class="window-minimize-btn" aria-label="Minimize">_</button>
+        <button class="window-close-btn" aria-label="Close">×</button>
+      </div>
+      <div class="window-menubar">
+        <span class="menu-item">File</span>
+        <span class="menu-item">Edit</span>
+        <span class="menu-item">Search</span>
+        <span class="menu-item">Help</span>
+      </div>
+      <div class="window-body">
+        <div class="window-loading" id="loading-secrets">
+          <div class="loading-text">Decrypting...</div>
+          <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+          </div>
+        </div>
+        <div class="window-content hidden" id="content-secrets">
+          <div class="secrets-content">
+            <p class="secrets-line">>&nbsp;CLASSIFIED DOCUMENT</p>
+            <p class="secrets-line">>&nbsp;CLEARANCE LEVEL: VISITOR</p>
+            <p class="secrets-line">&nbsp;</p>
+            <p class="secrets-line">>&nbsp;We're living in a simulation.</p>
+            <p class="secrets-line">>&nbsp;Everything is not real...</p>
+            <p class="secrets-line">>&nbsp;or real as much as you think it is.</p>
+            <p class="secrets-line">&nbsp;</p>
+            <p class="secrets-line">>&nbsp;Isn't it, Mr. Anderson?</p>
+            <p class="secrets-line">&nbsp;</p>
+            <p class="secrets-line flicker">>&nbsp;FOLLOW THE WHITE RABBIT_</p>
+          </div>
+        </div>
+      </div>
+      <div class="window-statusbar">
+        <span>secrets.txt</span>
+      </div>
+    </div>
+
+    <!-- Terminal Window -->
+    <div class="win95-window hidden" id="window-terminal" data-title="MS-DOS Prompt">
+      <div class="window-titlebar titlebar-terminal">
+        <div class="window-titlebar-icon">💻</div>
+        <span class="window-titlebar-text">MS-DOS Prompt</span>
+        <button class="window-minimize-btn" aria-label="Minimize">_</button>
+        <button class="window-close-btn" aria-label="Close">×</button>
+      </div>
+      <div class="window-body terminal-body">
+        <div class="window-loading" id="loading-terminal">
+          <div class="loading-text">Initializing...</div>
+          <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+          </div>
+        </div>
+        <div class="window-content hidden" id="content-terminal">
+          <div class="terminal" id="terminal">
+            <div class="terminal-output" id="terminal-output">
+              <div>Portfolio 95 [Version 1.0.2026]</div>
+              <div>(C) Copyright Kazim Systems, 2026.</div>
+              <div>&nbsp;</div>
+            </div>
+            <div class="terminal-input-line">
+              <span class="terminal-prompt">C:\KAZIM&gt;</span>
+              <input type="text" class="terminal-input" id="terminal-input" autofocus spellcheck="false"
+                autocomplete="off">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pong Window -->
+    <div class="win95-window hidden" id="window-pong" data-title="Pong.exe">
+      <div class="window-titlebar">
+        <div class="window-titlebar-icon">🎮</div>
+        <span class="window-titlebar-text">Pong.exe</span>
+        <button class="window-minimize-btn" aria-label="Minimize">_</button>
+        <button class="window-close-btn" aria-label="Close">×</button>
+      </div>
+      <div class="window-body pong-body">
+        <div class="window-loading" id="loading-pong">
+          <div class="loading-text">Loading game...</div>
+          <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+          </div>
+        </div>
+        <div class="window-content hidden" id="content-pong">
+          <canvas id="pong-canvas" width="640" height="400"></canvas>
+          <div class="pong-controls">
+            <span>W/S or ↑/↓ or Mouse to move | SPACE to pause</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Internet Explorer Window -->
+    <div class="win95-window hidden" id="window-ie" data-title="Internet Explorer">
+      <div class="window-titlebar">
+        <div class="window-titlebar-icon">🌐</div>
+        <span class="window-titlebar-text">Internet Explorer</span>
+        <button class="window-minimize-btn" aria-label="Minimize">_</button>
+        <button class="window-close-btn" aria-label="Close">×</button>
+      </div>
+      <div class="ie-toolbar">
+        <button class="ie-nav-btn" id="ie-back" title="Back" disabled>&#9664;</button>
+        <button class="ie-nav-btn" id="ie-forward" title="Forward" disabled>&#9654;</button>
+        <button class="ie-nav-btn" id="ie-stop" title="Stop">&#10005;</button>
+        <button class="ie-nav-btn" id="ie-home" title="Home">&#8962;</button>
+        <div class="ie-address-bar">
+          <span class="ie-address-label">Address</span>
+          <input type="text" class="win95-input ie-address-input" id="ie-address" value="C:\KAZIM\favorites.html"
+            readonly>
+        </div>
+      </div>
+      <div class="window-body ie-body">
+        <div class="window-loading" id="loading-ie">
+          <div class="loading-text">Connecting to the internet...</div>
+          <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+          </div>
+        </div>
+        <div class="window-content hidden" id="content-ie">
+          <div class="ie-content" id="ie-content">
+            <div class="ie-homepage" id="ie-homepage">
+              <div class="ie-homepage-header">
+                <h2>&#11088; Favorites - Kazim's Portfolio</h2>
+                <p>Welcome to the World Wide Web! Browse my websites below.</p>
+              </div>
+              <div class="ie-favorites">
+                <a class="ie-favorite-item" href="https://solcellersverige.se" target="_blank" rel="noopener">
+                  <div class="ie-fav-icon">&#127760;</div>
+                  <div class="ie-fav-info">
+                    <div class="ie-fav-title">Solceller Sverige</div>
+                    <div class="ie-fav-url">https://solcellersverige.se</div>
+                    <div class="ie-fav-desc">Solar panel landing page for the Swedish market. Conversion-optimized with
+                      trust elements.</div>
+                  </div>
+                </a>
+                <a class="ie-favorite-item" href="https://leclermasks.com" target="_blank" rel="noopener">
+                  <div class="ie-fav-icon">&#127760;</div>
+                  <div class="ie-fav-info">
+                    <div class="ie-fav-title">Lecler Masks</div>
+                    <div class="ie-fav-url">https://leclermasks.com</div>
+                    <div class="ie-fav-desc">Premium beauty & skincare e-commerce with WooCommerce integration.</div>
+                  </div>
+                </a>
+                <a class="ie-favorite-item" href="https://metalodarbai.lt" target="_blank" rel="noopener">
+                  <div class="ie-fav-icon">&#127760;</div>
+                  <div class="ie-fav-info">
+                    <div class="ie-fav-title">Metalo Darbai</div>
+                    <div class="ie-fav-url">https://metalodarbai.lt</div>
+                    <div class="ie-fav-desc">Metal fabrication services - laser cutting, bending, welding.</div>
+                  </div>
+                </a>
+                <a class="ie-favorite-item" href="https://apartamentai.lt" target="_blank" rel="noopener">
+                  <div class="ie-fav-icon">&#127760;</div>
+                  <div class="ie-fav-info">
+                    <div class="ie-fav-title">Apartamentai</div>
+                    <div class="ie-fav-url">https://apartamentai.lt</div>
+                    <div class="ie-fav-desc">Apartment rental platform with photo galleries and booking.</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="window-statusbar">
+        <span id="ie-status">Done</span>
+      </div>
+    </div>
+
+    <!-- Minesweeper Window -->
+    <div class="win95-window hidden" id="window-minesweeper" data-title="Minesweeper">
+      <div class="window-titlebar">
+        <div class="window-titlebar-icon">💣</div>
+        <span class="window-titlebar-text">Minesweeper</span>
+        <button class="window-minimize-btn" aria-label="Minimize">_</button>
+        <button class="window-close-btn" aria-label="Close">×</button>
+      </div>
+      <div class="window-menubar">
+        <span class="menu-item">Game</span>
+        <span class="menu-item">Help</span>
+      </div>
+      <div class="window-body minesweeper-body">
+        <div class="window-loading" id="loading-minesweeper">
+          <div class="loading-text">Loading game...</div>
+          <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+          </div>
+        </div>
+        <div class="window-content hidden" id="content-minesweeper">
+          <div class="minesweeper" id="minesweeper">
+            <div class="ms-header">
+              <div class="ms-counter" id="ms-mines">010</div>
+              <button class="ms-face" id="ms-face">&#128578;</button>
+              <div class="ms-counter" id="ms-timer">000</div>
+            </div>
+            <div class="ms-grid" id="ms-grid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clippy Assistant -->
+    <div id="clippy" class="clippy hidden">
+      <div class="clippy-bubble" id="clippy-bubble">
+        <div class="clippy-bubble-text">It looks like you're looking for a developer! Click here to open
+          <strong>Internet Explorer</strong> and see my work!
+        </div>
+        <button class="clippy-bubble-close" id="clippy-bubble-close">&#215;</button>
+      </div>
+      <div class="clippy-character" id="clippy-character">&#128206;</div>
+    </div>
+
+    <!-- CRT Scanlines Overlay -->
+    <div class="crt-overlay"></div>
+
+    <!-- ========== TASKBAR ========== -->
+    <div class="taskbar">
+      <button class="start-btn" id="start-btn">
+        <div class="start-logo"></div>
+        <span>Start</span>
+      </button>
+      <div class="start-menu hidden" id="start-menu">
+        <div class="start-menu-sidebar">
+          <span class="start-menu-sidebar-text">Portfolio95</span>
+        </div>
+        <div class="start-menu-items">
+          <div class="start-menu-item" data-window="projects">
+            <span class="start-icon">🖥️</span>
+            <span>My Computer</span>
+          </div>
+          <div class="start-menu-item" data-window="contact">
+            <span class="start-icon">📧</span>
+            <span>Contact</span>
+          </div>
+          <div class="start-menu-item" data-window="terminal">
+            <span class="start-icon">💻</span>
+            <span>MS-DOS Prompt</span>
+          </div>
+          <div class="start-menu-item" data-window="ie">
+            <span class="start-icon">🌐</span>
+            <span>Internet Explorer</span>
+          </div>
+          <div class="start-menu-item" data-window="minesweeper">
+            <span class="start-icon">💣</span>
+            <span>Minesweeper</span>
+          </div>
+          <div class="start-menu-separator"></div>
+          <div class="start-menu-item" id="start-shutdown">
+            <span class="start-icon">🔴</span>
+            <span>Shut Down...</span>
+          </div>
+        </div>
+      </div>
+      <div class="taskbar-divider"></div>
+      <div class="taskbar-windows" id="taskbar-windows"></div>
+      <div class="taskbar-tray">
+        <span class="taskbar-clock" id="taskbar-clock">12:00</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/boot.js"></script>
+  <script src="js/windowManager.js"></script>
+  <script src="js/desktop.js"></script>
+  <script src="js/explorer.js"></script>
+  <script src="js/terminal.js"></script>
+  <script src="js/pong.js"></script>
+  <script src="js/easterEggs.js"></script>
+  <script src="js/clippy.js"></script>
+  <script src="js/minesweeper.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

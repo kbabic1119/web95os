@@ -1,0 +1,224 @@
+/* ============================================
+   Windows 95 Design System
+   ============================================ */
+
+:root {
+  /* Win95 Color Palette */
+  --win95-desktop: #008080;
+  --win95-face: #C0C0C0;
+  --win95-dark: #808080;
+  --win95-darker: #404040;
+  --win95-light: #DFDFDF;
+  --win95-white: #FFFFFF;
+  --win95-black: #000000;
+  --win95-titlebar: #000080;
+  --win95-titlebar-inactive: #808080;
+  --win95-titlebar-text: #FFFFFF;
+  --win95-highlight: #0000FF;
+  --win95-highlight-text: #FFFFFF;
+  --win95-window-bg: #FFFFFF;
+  --win95-btn-text: #000000;
+}
+
+/* Custom Win95 Cursor */
+body {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='22' viewBox='0 0 16 22'%3E%3Cpath d='M0 0L0 19L4 15L7 21L10 20L7 14L12 14Z' fill='white' stroke='black' stroke-width='1'/%3E%3C/svg%3E"), auto;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ============================================
+   BSOD Screen - Authentic Win95
+   ============================================ */
+.bsod-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0000AA;
+  z-index: 50000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: none;
+}
+
+.bsod-content {
+  color: #FFFFFF;
+  font-family: 'Courier New', 'Consolas', 'Lucida Console', monospace;
+  font-size: 18px;
+  line-height: 1.8;
+  max-width: 900px;
+  width: 80%;
+  padding: 40px 60px;
+}
+
+.bsod-title {
+  background: #AAAAAA;
+  color: #0000AA;
+  padding: 1px 10px;
+  display: inline-block;
+  font-weight: normal;
+  font-size: 18px;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bsod-body {
+  text-align: left;
+  font-size: 18px;
+}
+
+.bsod-continue {
+  text-align: center;
+  font-size: 18px;
+}
+
+.bsod-blink {
+  animation: bsodBlink 1s step-end infinite;
+}
+
+@keyframes bsodBlink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   3D Border System
+   ============================================ */
+.border-raised {
+  border-top: 2px solid var(--win95-white);
+  border-left: 2px solid var(--win95-white);
+  border-bottom: 2px solid var(--win95-darker);
+  border-right: 2px solid var(--win95-darker);
+  box-shadow: inset 1px 1px 0 var(--win95-light), inset -1px -1px 0 var(--win95-dark);
+}
+
+.border-sunken {
+  border-top: 2px solid var(--win95-dark);
+  border-left: 2px solid var(--win95-dark);
+  border-bottom: 2px solid var(--win95-white);
+  border-right: 2px solid var(--win95-white);
+  box-shadow: inset 1px 1px 0 var(--win95-darker), inset -1px -1px 0 var(--win95-light);
+}
+
+/* ============================================
+   Win95 Buttons
+   ============================================ */
+.win95-btn {
+  background: var(--win95-face);
+  color: var(--win95-btn-text);
+  border-top: 2px solid var(--win95-white);
+  border-left: 2px solid var(--win95-white);
+  border-bottom: 2px solid var(--win95-darker);
+  border-right: 2px solid var(--win95-darker);
+  box-shadow: inset 1px 1px 0 var(--win95-light), inset -1px -1px 0 var(--win95-dark);
+  padding: 4px 16px;
+  min-width: 75px;
+  outline: none;
+}
+
+.win95-btn:active {
+  border-top: 2px solid var(--win95-darker);
+  border-left: 2px solid var(--win95-darker);
+  border-bottom: 2px solid var(--win95-white);
+  border-right: 2px solid var(--win95-white);
+  box-shadow: inset 1px 1px 0 var(--win95-dark), inset -1px -1px 0 var(--win95-light);
+  padding: 5px 15px 3px 17px;
+}
+
+.win95-btn:focus-visible {
+  outline: 1px dotted var(--win95-black);
+  outline-offset: -4px;
+}
+
+/* ============================================
+   Win95 Inputs
+   ============================================ */
+.win95-input,
+.win95-textarea {
+  background: var(--win95-white);
+  color: var(--win95-black);
+  border-top: 2px solid var(--win95-dark);
+  border-left: 2px solid var(--win95-dark);
+  border-bottom: 2px solid var(--win95-white);
+  border-right: 2px solid var(--win95-white);
+  box-shadow: inset 1px 1px 0 var(--win95-darker), inset -1px -1px 0 var(--win95-light);
+  padding: 3px 4px;
+  outline: none;
+  width: 100%;
+  resize: none;
+}
+
+.win95-input:focus,
+.win95-textarea:focus {
+  outline: none;
+}
+
+.win95-label {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--win95-black);
+}
+
+/* ============================================
+   Win95 Horizontal Rule
+   ============================================ */
+.win95-hr {
+  border: none;
+  border-top: 1px solid var(--win95-dark);
+  border-bottom: 1px solid var(--win95-white);
+  margin: 8px 0;
+}
+
+/* ============================================
+   Emoji Icons
+   ============================================ */
+
+/* Large desktop icons (48x48) */
+.icon-img {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  line-height: 1;
+}
+
+/* Titlebar icons (16x16) */
+.window-titlebar-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+/* Start menu icons */
+.start-icon {
+  font-size: 14px;
+  width: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}

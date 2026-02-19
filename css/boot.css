@@ -1,0 +1,191 @@
+/* ============================================
+   Boot Sequence Styles — Win95 Authentic
+   ============================================ */
+
+/* ---- Phase 1: BIOS POST ---- */
+
+.boot-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 32px 40px;
+  transition: opacity 0.5s ease;
+}
+
+.boot-screen.fade-out {
+  opacity: 0;
+}
+
+.boot-text {
+  color: #AAAAAA;
+  font-family: 'Courier New', 'Consolas', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.boot-text .boot-line {
+  display: block;
+  opacity: 0;
+  animation: bootLineAppear 0.05s forwards;
+}
+
+@keyframes bootLineAppear {
+  to { opacity: 1; }
+}
+
+.boot-text .highlight {
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.boot-text .ok {
+  color: #55FF55;
+}
+
+.boot-text .warn {
+  color: #FFFF55;
+}
+
+.boot-text .bios-header {
+  color: #FFFFFF;
+  background: #AAAAAA;
+  display: inline-block;
+  padding: 0 4px;
+}
+
+/* Old-style smooth progress bar (shown at end of BIOS phase) */
+.boot-progress-container {
+  display: none;
+  margin-top: 20px;
+  width: 300px;
+  height: 20px;
+  background: #000;
+  border: 1px solid #AAAAAA;
+  padding: 2px;
+}
+
+.boot-progress-container.visible {
+  display: block;
+}
+
+.boot-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: #AAAAAA;
+  transition: width 0.8s linear;
+}
+
+.boot-progress-bar.fill {
+  width: 100%;
+}
+
+/* ---- Phase 2: Win95 Logo Screen ---- */
+
+.boot-logo-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.boot-logo-screen.visible {
+  opacity: 1;
+}
+
+.boot-logo-screen.fade-out {
+  opacity: 0;
+}
+
+/* Win95 Flag Logo — 4 colored squares */
+.win95-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.win95-flag {
+  display: grid;
+  grid-template-columns: 36px 4px 36px;
+  grid-template-rows: 36px 4px 36px;
+  image-rendering: pixelated;
+}
+
+.win95-flag-red   { background: #FF0000; }
+.win95-flag-green { background: #00FF00; }
+.win95-flag-blue  { background: #0000FF; }
+.win95-flag-yell  { background: #FFFF00; }
+.win95-flag-gap   { background: transparent; }
+
+.win95-wordmark {
+  color: #FFFFFF;
+  font-family: 'Times New Roman', serif;
+  font-size: 28px;
+  font-weight: normal;
+  font-style: italic;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.win95-wordmark span {
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Authentic Win95 chunky progress blocks */
+.win95-boot-bar {
+  display: flex;
+  gap: 3px;
+  margin-top: 8px;
+}
+
+.win95-boot-block {
+  width: 20px;
+  height: 10px;
+  background: #C0C0C0;
+  opacity: 0;
+}
+
+.win95-boot-block.active {
+  animation: blockPulse 0.4s ease forwards;
+}
+
+@keyframes blockPulse {
+  0%   { opacity: 0; background: #C0C0C0; }
+  30%  { opacity: 1; background: #FFFFFF; }
+  100% { opacity: 1; background: #C0C0C0; }
+}
+
+/* Skip hint */
+.boot-skip {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  color: #444;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  animation: blink 1.5s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

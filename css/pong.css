@@ -1,0 +1,34 @@
+/* ============================================
+   Pong Game
+   ============================================ */
+
+.pong-body {
+  padding: 0;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#pong-canvas {
+  background: #000;
+  display: block;
+  background: #000;
+  image-rendering: pixels;
+}
+
+#window-pong {
+  width: 660px !important;
+  /* Force width to fit 640px canvas + borders */
+  max-width: 100vw;
+}
+
+.pong-controls {
+  background: #000;
+  color: #808080;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  text-align: center;
+  padding: 4px;
+  width: 100%;
+}

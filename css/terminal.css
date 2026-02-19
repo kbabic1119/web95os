@@ -1,0 +1,99 @@
+/* ============================================
+   MS-DOS Terminal
+   ============================================ */
+
+.titlebar-terminal {
+  background: linear-gradient(90deg, #808080, #C0C0C0);
+}
+
+.terminal-body {
+  padding: 0;
+  background: #000;
+}
+
+.terminal {
+  background: #000;
+  color: #C0C0C0;
+  font-family: 'Courier New', 'Consolas', monospace;
+  font-size: 13px;
+  padding: 8px;
+  min-height: 300px;
+  max-height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+}
+
+.terminal-output {
+  flex: 1;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 1.4;
+}
+
+.terminal-output div {
+  min-height: 1.4em;
+}
+
+.terminal-output .cmd-input-echo {
+  color: #FFFFFF;
+}
+
+.terminal-output .cmd-response {
+  color: #C0C0C0;
+}
+
+.terminal-output .cmd-highlight {
+  color: #55FF55;
+}
+
+.terminal-output .cmd-error {
+  color: #FF5555;
+}
+
+.terminal-output .cmd-link {
+  color: #5555FF;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 2px;
+}
+
+.terminal-prompt {
+  color: #C0C0C0;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.terminal-input {
+  background: transparent;
+  border: none;
+  color: #FFFFFF;
+  font-family: 'Courier New', 'Consolas', monospace;
+  font-size: 13px;
+  outline: none;
+  flex: 1;
+  caret-color: #C0C0C0;
+  padding: 0;
+  margin: 0;
+}
+
+.terminal-input::selection {
+  background: #C0C0C0;
+  color: #000;
+}
+
+/* Blinking cursor effect when empty */
+.terminal-input:placeholder-shown {
+  animation: terminalBlink 1s step-end infinite;
+}
+
+@keyframes terminalBlink {
+  0%, 100% { border-right: 8px solid #C0C0C0; }
+  50% { border-right: 8px solid transparent; }
+}
