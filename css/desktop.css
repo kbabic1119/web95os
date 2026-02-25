@@ -29,8 +29,35 @@
    Desktop Icons
    ============================================ */
 
-.desktop-icons {
+/* Wrapper holds both icon columns side by side */
+.desktop-icon-area {
   flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+/* Games area — shrinks to content, pushed right by auto left margin */
+.desktop-icons-games {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 8px 0 0;
+  gap: 20px;
+  align-self: flex-start;
+  margin-left: auto;
+}
+
+/* Each horizontal row of game icons */
+.desktop-icons-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+/* Work apps column — right side */
+.desktop-icons {
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -387,4 +414,521 @@
 
 .clippy-character.clippy-wobble {
   animation: clippyWobble 0.6s ease forwards !important;
+}
+
+/* Clippy right-click context menu */
+.clippy-context-menu {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  right: 0;
+  background: var(--win95-face);
+  border-top: 2px solid var(--win95-white);
+  border-left: 2px solid var(--win95-white);
+  border-bottom: 2px solid var(--win95-darker);
+  border-right: 2px solid var(--win95-darker);
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.4);
+  z-index: 10001;
+  min-width: 170px;
+  font-size: 12px;
+  padding: 2px 0;
+}
+
+.clippy-menu-item {
+  padding: 4px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.clippy-menu-item:hover {
+  background: var(--win95-titlebar);
+  color: var(--win95-white);
+}
+
+.clippy-menu-sep {
+  height: 1px;
+  background: var(--win95-dark);
+  margin: 2px 4px;
+}
+
+/* ============================================
+   Right-side Desktop Icons
+   ============================================ */
+
+.desktop-icons-right {
+  position: absolute;
+  right: 6px;
+  top: calc(50% - 18px); /* offset for taskbar */
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  z-index: 2; /* above .desktop-icons which has z-index:1 and covers full width */
+}
+
+/* ============================================
+   Dial-up Modem Overlay
+   ============================================ */
+
+.dialup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialup-box {
+  background: var(--win95-face);
+  border-top: 2px solid var(--win95-white);
+  border-left: 2px solid var(--win95-white);
+  border-bottom: 2px solid var(--win95-darker);
+  border-right: 2px solid var(--win95-darker);
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.4);
+  width: 380px;
+  font-size: 12px;
+}
+
+.dialup-body {
+  padding: 16px 20px 12px;
+}
+
+/* Modem animation row */
+.dialup-modem-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 16px;
+  padding: 12px 0 8px;
+}
+
+.dialup-endpoint {
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.dialup-endpoint-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.dialup-endpoint-label {
+  font-size: 10px;
+  color: var(--win95-dark);
+  margin-top: 2px;
+}
+
+.dialup-wire-wrap {
+  flex: 1;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin: 0 2px;
+  border-bottom: 2px solid var(--win95-dark);
+  position: relative;
+}
+
+.dialup-signal {
+  display: flex;
+  gap: 12px;
+  position: absolute;
+  animation: dialupSignalMove 0.7s linear infinite;
+}
+
+.dialup-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--win95-titlebar);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+@keyframes dialupSignalMove {
+  0%   { transform: translateX(-40px); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateX(60px); opacity: 0; }
+}
+
+/* Status row */
+.dialup-status-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.dialup-status-label {
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.dialup-status-value {
+  color: var(--win95-titlebar);
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+}
+
+/* Progress bar */
+.dialup-progress-wrap {
+  height: 18px;
+  background: var(--win95-white);
+  border-top: 2px solid var(--win95-dark);
+  border-left: 2px solid var(--win95-dark);
+  border-bottom: 2px solid var(--win95-white);
+  border-right: 2px solid var(--win95-white);
+  margin-bottom: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.dialup-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--win95-titlebar);
+  transition: width 0.3s ease;
+}
+
+/* Details box */
+.dialup-details-box {
+  border-top: 1px solid var(--win95-dark);
+  border-left: 1px solid var(--win95-dark);
+  border-bottom: 1px solid var(--win95-white);
+  border-right: 1px solid var(--win95-white);
+  background: var(--win95-white);
+  padding: 6px 8px;
+  margin-bottom: 12px;
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+}
+
+.dialup-detail-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.dialup-detail-label {
+  color: var(--win95-dark);
+  white-space: nowrap;
+}
+
+.dialup-detail-value {
+  color: var(--win95-black);
+}
+
+/* Buttons row */
+.dialup-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ============================================
+   Paint App Styles
+   ============================================ */
+
+.paint-body {
+  background: #c0c0c0;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.paint-toolbar {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  padding: 4px;
+  background: #c0c0c0;
+}
+
+.paint-tools-box {
+  border: 2px solid #fff;
+  border-right-color: #808080;
+  border-bottom-color: #808080;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.paint-tools-row {
+  display: flex;
+  gap: 4px;
+}
+
+.paint-tool {
+  width: 28px;
+  height: 28px;
+  border: 2px solid #fff;
+  border-right-color: #808080;
+  border-bottom-color: #808080;
+  background: #c0c0c0;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paint-tool:active,
+.paint-tool.active {
+  border: 2px solid #808080;
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+  background: #a0a0a0;
+}
+
+.paint-sizes-box {
+  border: 2px solid #808080;
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+.paint-size {
+  width: 26px;
+  height: 26px;
+  border: 2px solid #fff;
+  border-right-color: #808080;
+  border-bottom-color: #808080;
+  background: #c0c0c0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+}
+
+.paint-size[data-size="2"] {
+  font-size: 8px;
+}
+
+.paint-size[data-size="5"] {
+  font-size: 14px;
+}
+
+.paint-size[data-size="10"] {
+  font-size: 20px;
+}
+
+.paint-size:active,
+.paint-size.active {
+  border: 2px solid #808080;
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+  background: #a0a0a0;
+}
+
+.paint-colors-box {
+  border: 2px solid #fff;
+  border-right-color: #808080;
+  border-bottom-color: #808080;
+  padding: 4px;
+}
+
+.paint-colors {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 2px;
+}
+
+.paint-color {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #808080;
+  cursor: pointer;
+}
+
+.paint-color:hover {
+  outline: 2px solid #000;
+  outline-offset: -2px;
+}
+
+.paint-color.active {
+  outline: 2px solid #000;
+  outline-offset: -2px;
+  border: 2px solid #fff;
+}
+
+.paint-canvas-wrapper {
+  border: 2px solid #808080;
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+  background: #808080;
+  padding: 2px;
+}
+
+#paint-canvas {
+  display: block;
+  background: #fff;
+  cursor: crosshair;
+  border: 1px solid #000;
+}
+
+.paint-actions {
+  display: flex;
+  gap: 8px;
+  padding: 4px;
+  border-top: 2px solid #fff;
+  margin-top: 2px;
+}
+
+.paint-actions .win95-btn {
+  padding: 4px 16px;
+  font-size: 12px;
+}
+
+/* ============================================
+   DOOM Game Styles
+   ============================================ */
+
+.doom-body {
+  background: #000;
+  padding: 0;
+}
+
+.doom-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background: #000;
+}
+
+#doom-canvas {
+  display: block;
+  background: #000;
+  border: 2px solid #808080;
+  border-right-color: #fff;
+  border-bottom-color: #fff;
+  max-width: 100%;
+}
+
+.doom-controls {
+  width: 100%;
+  padding: 10px;
+  background: #c0c0c0;
+  border-top: 2px solid #fff;
+  text-align: center;
+}
+
+.doom-info {
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: #000;
+}
+
+.doom-keys {
+  margin-bottom: 10px;
+  font-size: 11px;
+  color: #000;
+  line-height: 2;
+}
+
+.doom-keys kbd {
+  background: #fff;
+  border: 1px solid #808080;
+  border-bottom-color: #000;
+  border-right-color: #000;
+  border-radius: 2px;
+  padding: 0 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  font-style: normal;
+}
+
+#doom-start {
+  padding: 6px 20px;
+  font-weight: bold;
+}
+
+/* ============================================
+   Mobile Responsiveness
+   ============================================ */
+
+@media (max-width: 600px) {
+  /* Shrink icons slightly so two columns still fit */
+  .desktop-icons {
+    padding: 8px 4px;
+    gap: 8px;
+    max-height: calc(100vh - 46px);
+  }
+
+  .desktop-icon {
+    width: 66px;
+    padding: 4px;
+  }
+
+  .icon-label {
+    font-size: 10px;
+    max-width: 66px;
+  }
+
+  /* Dial-up icon: stay visible near edge */
+  .desktop-icons-right {
+    right: 2px;
+  }
+
+  /* Taskbar: taller touch target */
+  .taskbar {
+    height: 40px;
+  }
+
+  .start-btn {
+    height: 32px;
+  }
+
+  /* Taskbar window buttons: shorter labels */
+  .taskbar-window-btn {
+    max-width: 80px;
+    font-size: 10px;
+    padding: 2px 4px;
+  }
+
+  /* Clippy: smaller so it doesn't block content */
+  .clippy {
+    bottom: 46px;
+    right: 8px;
+  }
+
+  .clippy-character {
+    font-size: 36px;
+  }
+
+  .clippy-bubble {
+    max-width: 180px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 400px) {
+  /* Very small phones: reduce icon size further */
+  .desktop-icon {
+    width: 56px;
+  }
+
+  .icon-label {
+    font-size: 9px;
+    max-width: 56px;
+  }
+
+  .desktop-icons {
+    gap: 6px;
+    padding: 6px 2px;
+  }
 }

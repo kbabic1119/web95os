@@ -9,6 +9,7 @@ const EasterEggs = {
   init() {
     this.setupKonamiCode();
     this.setupBSOD();
+    this.setupDialup();
   },
 
   /* ============================================
@@ -38,6 +39,7 @@ const EasterEggs = {
     if (bsod) {
       bsod.classList.remove('hidden');
     }
+    if (typeof Clippy !== 'undefined') Clippy.onBSOD();
   },
 
   /* ============================================
@@ -135,5 +137,97 @@ const EasterEggs = {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     drawMatrix();
+  },
+
+  /* ============================================
+     Dial-up Modem Connection
+     ============================================ */
+  setupDialup() {
+    const icon = document.querySelector('[data-action="dialup"]');
+    if (!icon) return;
+
+    const trigger = () => this.triggerDialup();
+
+    icon.addEventListener('click', trigger);
+    icon.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        trigger();
+      }
+    });
+  },
+
+  triggerDialup() {
+    const overlay = document.getElementById('dialup-overlay');
+    if (!overlay) return;
+
+    overlay.classList.remove('hidden');
+
+    // Generate modem sounds using Web Audio API
+    this.generateDialupSound();
+
+    // Close overlay and open IE after 6 seconds
+    setTimeout(() => {
+      overlay.classList.add('hidden');
+
+      // Open Internet Explorer window
+      if (typeof WindowManager !== 'undefined') {
+        WindowManager.open('ie');
+      }
+    }, 6000);
+  },
+
+  generateDialupSound() {
+    try {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const now = audioCtx.currentTime;
+
+      // Helper function to play a tone
+      const playTone = (freq, startTime, duration, volume = 0.15) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.frequency.value = freq;
+        osc.type = 'square';
+        gain.gain.value = volume;
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start(startTime);
+        osc.stop(startTime + duration);
+      };
+
+      // DTMF dial tones (simulating dialing a phone number)
+      const dtmfTones = [
+        [697, 1209], // 1
+        [697, 1336], // 2
+        [697, 1477], // 3
+        [770, 1209], // 4
+        [770, 1336], // 5
+        [852, 1209], // 7
+      ];
+
+      let time = now + 0.1;
+      dtmfTones.forEach((tones) => {
+        playTone(tones[0], time, 0.15, 0.08);
+        playTone(tones[1], time, 0.15, 0.08);
+        time += 0.2;
+      });
+
+      // Handshake noise (chaotic high-frequency noise)
+      time = now + 1.5;
+      for (let i = 0; i < 40; i++) {
+        const freq = 1000 + Math.random() * 2500;
+        const duration = 0.05 + Math.random() * 0.15;
+        playTone(freq, time, duration, 0.05);
+        time += duration * 0.5;
+      }
+
+      // Final carrier tone (stable connection)
+      playTone(2100, time, 1.0, 0.1);
+    } catch (e) {
+      console.log('Audio playback not supported or blocked:', e);
+    }
   }
 };

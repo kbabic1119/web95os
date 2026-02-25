@@ -24,6 +24,9 @@ const WindowManager = {
       this.updateTaskbarButton(windowId, false);
       if (windowId === 'pong' && typeof Pong !== 'undefined') Pong.start();
       if (windowId === 'minesweeper' && typeof Minesweeper !== 'undefined') Minesweeper.start();
+      if (windowId === 'winamp' && typeof Winamp !== 'undefined') Winamp.start();
+      if (windowId === 'snake' && typeof Snake !== 'undefined') Snake.start();
+      if (windowId === 'spaceinvaders' && typeof SpaceInvaders !== 'undefined') SpaceInvaders.start();
       return;
     }
 
@@ -69,6 +72,9 @@ const WindowManager = {
         if (windowId === 'projects' && typeof Explorer !== 'undefined') Explorer.init();
         if (windowId === 'pong' && typeof Pong !== 'undefined') Pong.start();
         if (windowId === 'minesweeper' && typeof Minesweeper !== 'undefined') Minesweeper.start();
+        if (windowId === 'winamp' && typeof Winamp !== 'undefined') Winamp.start();
+        if (windowId === 'snake' && typeof Snake !== 'undefined') Snake.start();
+        if (windowId === 'spaceinvaders' && typeof SpaceInvaders !== 'undefined') SpaceInvaders.start();
         if (typeof Clippy !== 'undefined') Clippy.onWindowOpen(windowId);
       }, this.loadingDuration);
     }
@@ -80,6 +86,9 @@ const WindowManager = {
 
     if (windowId === 'pong' && typeof Pong !== 'undefined') Pong.stop();
     if (windowId === 'minesweeper' && typeof Minesweeper !== 'undefined') Minesweeper.stop();
+    if (windowId === 'winamp' && typeof Winamp !== 'undefined') Winamp.stop();
+    if (windowId === 'snake' && typeof Snake !== 'undefined') Snake.stop();
+    if (windowId === 'spaceinvaders' && typeof SpaceInvaders !== 'undefined') SpaceInvaders.stop();
 
     windowEl.classList.add('closing');
     setTimeout(() => {
@@ -101,6 +110,9 @@ const WindowManager = {
 
     if (windowId === 'pong' && typeof Pong !== 'undefined') Pong.stop();
     if (windowId === 'minesweeper' && typeof Minesweeper !== 'undefined') Minesweeper.stop();
+    if (windowId === 'winamp' && typeof Winamp !== 'undefined') Winamp.stop();
+    if (windowId === 'snake' && typeof Snake !== 'undefined') Snake.stop();
+    if (windowId === 'spaceinvaders' && typeof SpaceInvaders !== 'undefined') SpaceInvaders.stop();
 
     if (!this.windows[windowId]) this.windows[windowId] = {};
     this.windows[windowId].minimized = true;
@@ -121,6 +133,13 @@ const WindowManager = {
   },
 
   positionWindow(windowEl) {
+    // On mobile, snap to top-left with small margin (no cascade, no drag)
+    if (window.innerWidth <= 600) {
+      windowEl.style.left = '10px';
+      windowEl.style.top = '4px';
+      windowEl.style.transform = 'none';
+      return;
+    }
     // Cascade: each window opens slightly offset from the last
     const openCount = Object.values(this.windows).filter(s => s.initialized).length;
     const offset = (openCount % 8) * 24;
@@ -139,37 +158,53 @@ const WindowManager = {
     let dragging = false;
     let ox, oy; // offset from window origin to mouse at drag start
 
-    titlebar.addEventListener('mousedown', (e) => {
-      if (e.target.closest('button')) return;
+    const startDrag = (clientX, clientY) => {
+      if (window.innerWidth <= 600) return; // no drag on mobile
       dragging = true;
       const rect = windowEl.getBoundingClientRect();
-      ox = e.clientX - rect.left;
-      oy = e.clientY - rect.top;
+      ox = clientX - rect.left;
+      oy = clientY - rect.top;
       titlebar.style.cursor = 'grabbing';
-      e.preventDefault();
-    });
+    };
 
-    document.addEventListener('mousemove', (e) => {
+    const moveDrag = (clientX, clientY) => {
       if (!dragging) return;
-      let newLeft = e.clientX - ox;
-      let newTop = e.clientY - oy;
-
-      // Clamp within viewport
+      let newLeft = clientX - ox;
+      let newTop = clientY - oy;
       const maxLeft = window.innerWidth - windowEl.offsetWidth;
-      const maxTop = window.innerHeight - 80; // leave taskbar space
+      const maxTop = window.innerHeight - 80;
       newLeft = Math.max(0, Math.min(maxLeft, newLeft));
       newTop = Math.max(0, Math.min(maxTop, newTop));
-
       windowEl.style.left = `${newLeft}px`;
       windowEl.style.top = `${newTop}px`;
-    });
+    };
 
-    document.addEventListener('mouseup', () => {
-      if (dragging) {
-        dragging = false;
-        titlebar.style.cursor = '';
-      }
+    const endDrag = () => {
+      if (dragging) { dragging = false; titlebar.style.cursor = ''; }
+    };
+
+    // Mouse
+    titlebar.addEventListener('mousedown', (e) => {
+      if (e.target.closest('button')) return;
+      startDrag(e.clientX, e.clientY);
+      e.preventDefault();
     });
+    document.addEventListener('mousemove', (e) => moveDrag(e.clientX, e.clientY));
+    document.addEventListener('mouseup', endDrag);
+
+    // Touch
+    titlebar.addEventListener('touchstart', (e) => {
+      if (e.target.closest('button')) return;
+      const t = e.touches[0];
+      startDrag(t.clientX, t.clientY);
+      e.preventDefault();
+    }, { passive: false });
+    document.addEventListener('touchmove', (e) => {
+      if (!dragging) return;
+      moveDrag(e.touches[0].clientX, e.touches[0].clientY);
+      e.preventDefault();
+    }, { passive: false });
+    document.addEventListener('touchend', endDrag);
 
     // Click anywhere on window → bring to front
     windowEl.addEventListener('mousedown', () => {

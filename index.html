@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+  <!-- Cross-Origin Isolation for SharedArrayBuffer (DOOM/js-dos on GitHub Pages) -->
+  <script src="coi-serviceworker.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kazim | Portfolio 95</title>
@@ -14,6 +16,8 @@
   <link rel="stylesheet" href="css/windows.css">
   <link rel="stylesheet" href="css/terminal.css">
   <link rel="stylesheet" href="css/pong.css">
+  <link rel="stylesheet" href="css/snake.css">
+  <link rel="stylesheet" href="css/spaceinvaders.css">
 </head>
 
 <body>
@@ -48,46 +52,154 @@
   <!-- ========== MATRIX RAIN CANVAS ========== -->
   <canvas id="matrix-canvas" class="matrix-canvas hidden"></canvas>
 
+  <!-- ========== DIAL-UP MODEM OVERLAY ========== -->
+  <div id="dialup-overlay" class="dialup-overlay hidden">
+    <div class="dialup-box">
+      <div class="window-titlebar">
+        <div class="window-titlebar-icon" style="font-size:13px;">📟</div>
+        <span class="window-titlebar-text">Connecting to America Online...</span>
+        <button class="window-close-btn" id="dialup-close-btn">×</button>
+      </div>
+      <div class="dialup-body">
+        <div class="dialup-modem-row">
+          <div class="dialup-endpoint">
+            <div class="dialup-endpoint-icon">🖥️</div>
+            <div class="dialup-endpoint-label">Your PC</div>
+          </div>
+          <div class="dialup-wire-wrap">
+            <div class="dialup-signal">
+              <span class="dialup-dot"></span>
+              <span class="dialup-dot"></span>
+              <span class="dialup-dot"></span>
+            </div>
+          </div>
+          <div class="dialup-endpoint">
+            <div class="dialup-endpoint-icon">📟</div>
+            <div class="dialup-endpoint-label">Modem</div>
+          </div>
+          <div class="dialup-wire-wrap">
+            <div class="dialup-signal">
+              <span class="dialup-dot"></span>
+              <span class="dialup-dot"></span>
+              <span class="dialup-dot"></span>
+            </div>
+          </div>
+          <div class="dialup-endpoint">
+            <div class="dialup-endpoint-icon">🌐</div>
+            <div class="dialup-endpoint-label">Internet</div>
+          </div>
+        </div>
+
+        <div class="dialup-status-row">
+          <span class="dialup-status-label">Status:</span>
+          <span id="dialup-status-text" class="dialup-status-value">Dialing...</span>
+        </div>
+
+        <div class="dialup-progress-wrap">
+          <div class="dialup-progress-bar" id="dialup-progress-bar"></div>
+        </div>
+
+        <div class="dialup-details-box">
+          <div class="dialup-detail-row">
+            <span class="dialup-detail-label">Phone number:</span>
+            <span class="dialup-detail-value">555-1234</span>
+          </div>
+          <div class="dialup-detail-row">
+            <span class="dialup-detail-label">Speed:</span>
+            <span class="dialup-detail-value" id="dialup-speed-text">Negotiating...</span>
+          </div>
+        </div>
+
+        <div class="dialup-buttons">
+          <button class="win95-btn" id="dialup-cancel-btn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ========== DESKTOP ========== -->
   <div id="desktop" class="desktop hidden">
 
     <!-- Desktop Icons -->
-    <div class="desktop-icons">
-      <div class="desktop-icon" data-window="projects" tabindex="0">
-        <div class="icon-img">🖥️</div>
-        <span class="icon-label">My Computer</span>
+    <div class="desktop-icon-area">
+
+      <!-- Work apps column (left) -->
+      <div class="desktop-icons">
+        <div class="desktop-icon" data-window="projects" tabindex="0">
+          <div class="icon-img"><img src="img/icons/computer.png" width="48" height="48" alt="My Computer" draggable="false"></div>
+          <span class="icon-label">My Computer</span>
+        </div>
+        <div class="desktop-icon" data-window="contact" tabindex="0">
+          <div class="icon-img"><img src="img/icons/mail.png" width="48" height="48" alt="Contact" draggable="false"></div>
+          <span class="icon-label">Contact</span>
+        </div>
+        <div class="desktop-icon" data-window="ie" tabindex="0">
+          <div class="icon-img"><img src="img/icons/ie.png" width="48" height="48" alt="Internet Explorer" draggable="false"></div>
+          <span class="icon-label">Internet Explorer</span>
+        </div>
+        <div class="desktop-icon" data-window="terminal" tabindex="0">
+          <div class="icon-img"><img src="img/icons/msdos.png" width="48" height="48" alt="MS-DOS Prompt" draggable="false"></div>
+          <span class="icon-label">MS-DOS Prompt</span>
+        </div>
+        <div class="desktop-icon" data-window="recycle" tabindex="0">
+          <div class="icon-img"><img src="img/icons/recycle.png" width="48" height="48" alt="Recycle Bin" draggable="false"></div>
+          <span class="icon-label">Recycle Bin</span>
+        </div>
+        <div class="desktop-icon" data-window="secrets" tabindex="0">
+          <div class="icon-img"><img src="img/icons/notepad.png" width="48" height="48" alt="Secrets.txt" draggable="false"></div>
+          <span class="icon-label">Secrets.txt</span>
+        </div>
+        <div class="desktop-icon" data-action="bsod" tabindex="0">
+          <div class="icon-img"><img src="img/icons/terminate.png" width="48" height="48" alt="Terminate.exe" draggable="false"></div>
+          <span class="icon-label">Terminate.exe</span>
+        </div>
       </div>
-      <div class="desktop-icon" data-window="contact" tabindex="0">
-        <div class="icon-img">📧</div>
-        <span class="icon-label">Contact</span>
+
+      <!-- Games area (horizontal rows, top-aligned, pushed right) -->
+      <div class="desktop-icons-games">
+        <!-- Row 1: small games across the top -->
+        <div class="desktop-icons-row">
+          <div class="desktop-icon" data-window="pong" tabindex="0">
+            <div class="icon-img"><img src="img/icons/pong.png" width="48" height="48" alt="Pong" draggable="false"></div>
+            <span class="icon-label">Pong.exe</span>
+          </div>
+          <div class="desktop-icon" data-window="snake" tabindex="0">
+            <div class="icon-img">🐍</div>
+            <span class="icon-label">Snake.exe</span>
+          </div>
+          <div class="desktop-icon" data-window="spaceinvaders" tabindex="0">
+            <div class="icon-img">👾</div>
+            <span class="icon-label">Space Invaders</span>
+          </div>
+          <div class="desktop-icon" data-window="minesweeper" tabindex="0">
+            <div class="icon-img"><img src="img/icons/minesweeper.png" width="48" height="48" alt="Minesweeper" draggable="false"></div>
+            <span class="icon-label">Minesweeper</span>
+          </div>
+          <div class="desktop-icon" data-window="paint" tabindex="0">
+            <div class="icon-img"><img src="img/icons/paint.png" width="48" height="48" alt="Paint" draggable="false"></div>
+            <span class="icon-label">Paint</span>
+          </div>
+        </div>
+        <!-- Row 2: DOOM + Winamp slightly below, centered -->
+        <div class="desktop-icons-row">
+          <div class="desktop-icon" data-window="doom" tabindex="0">
+            <div class="icon-img"><img src="img/icons/doom.png" width="48" height="48" alt="DOOM" draggable="false"></div>
+            <span class="icon-label">DOOM</span>
+          </div>
+          <div class="desktop-icon" data-window="winamp" tabindex="0">
+            <div class="icon-img">🎵</div>
+            <span class="icon-label">Winamp</span>
+          </div>
+        </div>
       </div>
-      <div class="desktop-icon" data-window="terminal" tabindex="0">
-        <div class="icon-img">💻</div>
-        <span class="icon-label">MS-DOS Prompt</span>
-      </div>
-      <div class="desktop-icon" data-window="pong" tabindex="0">
-        <div class="icon-img">🎮</div>
-        <span class="icon-label">Pong.exe</span>
-      </div>
-      <div class="desktop-icon" data-window="recycle" tabindex="0">
-        <div class="icon-img">🗑️</div>
-        <span class="icon-label">Recycle Bin</span>
-      </div>
-      <div class="desktop-icon" data-window="secrets" tabindex="0">
-        <div class="icon-img">🔒</div>
-        <span class="icon-label">Secrets.txt</span>
-      </div>
-      <div class="desktop-icon" data-action="bsod" tabindex="0">
-        <div class="icon-img">💀</div>
-        <span class="icon-label">Terminate.exe</span>
-      </div>
-      <div class="desktop-icon" data-window="ie" tabindex="0">
-        <div class="icon-img">🌐</div>
-        <span class="icon-label">Internet Explorer</span>
-      </div>
-      <div class="desktop-icon" data-window="minesweeper" tabindex="0">
-        <div class="icon-img">💣</div>
-        <span class="icon-label">Minesweeper</span>
+
+    </div>
+
+    <!-- Right-side Desktop Icons -->
+    <div class="desktop-icons-right">
+      <div class="desktop-icon" data-action="dialup" tabindex="0">
+        <div class="icon-img">📟</div>
+        <span class="icon-label">Dial-Up<br>Networking</span>
       </div>
     </div>
 
@@ -180,15 +292,7 @@
               </div>
               <div class="contact-row">
                 <span class="contact-label">Location:</span>
-                <span>Sweden</span>
-              </div>
-              <div class="contact-row">
-                <span class="contact-label">GitHub:</span>
-                <a href="#" class="contact-link">github.com/yourusername</a>
-              </div>
-              <div class="contact-row">
-                <span class="contact-label">LinkedIn:</span>
-                <a href="#" class="contact-link">linkedin.com/in/yourusername</a>
+                <span>Danang</span>
               </div>
             </div>
             <hr class="win95-hr">
@@ -239,10 +343,10 @@
         <div class="window-content hidden" id="content-recycle">
           <div class="recycle-content">
             <div class="recycle-icon-large"></div>
-            <p class="recycle-message">This portfolio contains <strong>0 bugs</strong>. ;)</p>
-            <p class="recycle-sub">The Recycle Bin is empty.</p>
+            <p class="recycle-message" id="recycle-bug-msg">This portfolio contains <strong>4 bugs</strong>.</p>
+            <p class="recycle-sub" id="recycle-status-msg">The Recycle Bin is not empty.</p>
             <br>
-            <button class="win95-btn" onclick="this.textContent='Still nothing here!'">Empty Recycle Bin</button>
+            <button class="win95-btn" id="empty-bin-btn">Empty Recycle Bin</button>
           </div>
         </div>
       </div>
@@ -363,8 +467,7 @@
         <button class="ie-nav-btn" id="ie-home" title="Home">&#8962;</button>
         <div class="ie-address-bar">
           <span class="ie-address-label">Address</span>
-          <input type="text" class="win95-input ie-address-input" id="ie-address" value="C:\KAZIM\favorites.html"
-            readonly>
+          <input type="text" class="win95-input ie-address-input" id="ie-address" value="http://www.google.com" readonly>
         </div>
       </div>
       <div class="window-body ie-body">
@@ -376,45 +479,37 @@
         </div>
         <div class="window-content hidden" id="content-ie">
           <div class="ie-content" id="ie-content">
-            <div class="ie-homepage" id="ie-homepage">
-              <div class="ie-homepage-header">
-                <h2>&#11088; Favorites - Kazim's Portfolio</h2>
-                <p>Welcome to the World Wide Web! Browse my websites below.</p>
+            <div class="google-page">
+              <div class="google-top-links">
+                <a href="#" class="google-link">Web</a>
+                <a href="#" class="google-link">Images</a>
+                <a href="#" class="google-link">Groups</a>
+                <a href="#" class="google-link">Directory</a>
+                <a href="#" class="google-link">News <span class="google-new">New!</span></a>
               </div>
-              <div class="ie-favorites">
-                <a class="ie-favorite-item" href="https://solcellersverige.se" target="_blank" rel="noopener">
-                  <div class="ie-fav-icon">&#127760;</div>
-                  <div class="ie-fav-info">
-                    <div class="ie-fav-title">Solceller Sverige</div>
-                    <div class="ie-fav-url">https://solcellersverige.se</div>
-                    <div class="ie-fav-desc">Solar panel landing page for the Swedish market. Conversion-optimized with
-                      trust elements.</div>
+              <div class="google-center">
+                <div class="google-logo">
+                  <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
+                </div>
+                <div class="google-beta">Beta</div>
+                <form class="google-form" onsubmit="window.open('https://www.google.com/search?q='+encodeURIComponent(this.q.value),'_blank');return false;">
+                  <input type="text" name="q" class="google-input" autocomplete="off">
+                  <div class="google-btns">
+                    <button type="submit" class="google-btn">Google Search</button>
+                    <button type="button" class="google-btn" onclick="window.open('https://www.google.com','_blank')">I'm Feeling Lucky</button>
                   </div>
-                </a>
-                <a class="ie-favorite-item" href="https://leclermasks.com" target="_blank" rel="noopener">
-                  <div class="ie-fav-icon">&#127760;</div>
-                  <div class="ie-fav-info">
-                    <div class="ie-fav-title">Lecler Masks</div>
-                    <div class="ie-fav-url">https://leclermasks.com</div>
-                    <div class="ie-fav-desc">Premium beauty & skincare e-commerce with WooCommerce integration.</div>
-                  </div>
-                </a>
-                <a class="ie-favorite-item" href="https://metalodarbai.lt" target="_blank" rel="noopener">
-                  <div class="ie-fav-icon">&#127760;</div>
-                  <div class="ie-fav-info">
-                    <div class="ie-fav-title">Metalo Darbai</div>
-                    <div class="ie-fav-url">https://metalodarbai.lt</div>
-                    <div class="ie-fav-desc">Metal fabrication services - laser cutting, bending, welding.</div>
-                  </div>
-                </a>
-                <a class="ie-favorite-item" href="https://apartamentai.lt" target="_blank" rel="noopener">
-                  <div class="ie-fav-icon">&#127760;</div>
-                  <div class="ie-fav-info">
-                    <div class="ie-fav-title">Apartamentai</div>
-                    <div class="ie-fav-url">https://apartamentai.lt</div>
-                    <div class="ie-fav-desc">Apartment rental platform with photo galleries and booking.</div>
-                  </div>
-                </a>
+                </form>
+                <div class="google-lang">
+                  Search the web using Google!<br>
+                  <span class="google-small">Google is available in: <a href="#" class="google-link">Français</a> <a href="#" class="google-link">Deutsch</a> <a href="#" class="google-link">Italiano</a> <a href="#" class="google-link">中文</a></span>
+                </div>
+              </div>
+              <div class="google-footer">
+                <a href="#" class="google-link">Advertising Programs</a> -
+                <a href="#" class="google-link">Business Solutions</a> -
+                <a href="#" class="google-link">About Google</a>
+                <br><br>
+                &copy;2000 Google Inc.
               </div>
             </div>
           </div>
@@ -457,9 +552,289 @@
       </div>
     </div>
 
+    <!-- Snake Window -->
+    <div class="win95-window hidden" id="window-snake" data-title="Snake.exe">
+      <div class="window-titlebar">
+        <div class="window-titlebar-icon">🐍</div>
+        <span class="window-titlebar-text">Snake.exe</span>
+        <button class="window-minimize-btn" aria-label="Minimize">_</button>
+        <button class="window-close-btn" aria-label="Close">×</button>
+      </div>
+      <div class="window-body snake-body">
+        <div class="window-loading" id="loading-snake">
+          <div class="loading-text">Loading game...</div>
+          <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+          </div>
+        </div>
+        <div class="window-content hidden" id="content-snake">
+          <canvas id="snake-canvas" width="400" height="400"></canvas>
+          <div class="snake-controls">Arrow keys or WASD to move | Enter to restart</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Space Invaders Window -->
+    <div class="win95-window hidden" id="window-spaceinvaders" data-title="Space Invaders">
+      <div class="window-titlebar">
+        <div class="window-titlebar-icon">👾</div>
+        <span class="window-titlebar-text">Space Invaders</span>
+        <button class="window-minimize-btn" aria-label="Minimize">_</button>
+        <button class="window-close-btn" aria-label="Close">×</button>
+      </div>
+      <div class="window-body si-body">
+        <div class="window-loading" id="loading-spaceinvaders">
+          <div class="loading-text">Loading game...</div>
+          <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+          </div>
+        </div>
+        <div class="window-content hidden" id="content-spaceinvaders">
+          <canvas id="si-canvas" width="400" height="380"></canvas>
+          <div class="si-controls">← → or A D to move | Space to shoot (up to 3 bullets) | Enter to restart</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Doom Window -->
+    <div class="win95-window hidden" id="window-doom" data-title="Freedoom">
+      <div class="window-titlebar">
+        <div class="window-titlebar-icon">👹</div>
+        <span class="window-titlebar-text">Freedoom</span>
+        <button class="window-close-btn" aria-label="Close">×</button>
+      </div>
+      <div class="window-menubar">
+        <span class="menu-item">Game</span>
+        <span class="menu-item">Help</span>
+      </div>
+      <div class="window-body doom-body">
+        <div class="window-loading" id="loading-doom">
+          <div class="loading-text">Loading Freedoom...</div>
+          <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+          </div>
+        </div>
+        <div class="window-content hidden" id="content-doom">
+          <div class="doom-container">
+            <div id="doom-player" style="width:640px;height:400px;"></div>
+            <div class="doom-controls">
+              <div class="doom-info">
+                <strong>Freedoom</strong><br>
+                <small>Free Open-Source Doom</small>
+              </div>
+              <div class="doom-keys">
+                <small><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> Move</small> |
+                <small><kbd>← →</kbd> Turn</small> |
+                <small><kbd>Ctrl</kbd> Shoot</small> |
+                <small><kbd>Space</kbd> Open</small> |
+                <small><kbd>Shift</kbd> Run</small> |
+                <small><kbd>ESC</kbd> Menu</small>
+              </div>
+              <button class="win95-btn" id="doom-start">Start Game</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paint Window -->
+    <div class="win95-window hidden" id="window-paint" data-title="Paint">
+      <div class="window-titlebar">
+        <div class="window-titlebar-icon">🎨</div>
+        <span class="window-titlebar-text">Paint</span>
+        <button class="window-close-btn" aria-label="Close">×</button>
+      </div>
+      <div class="window-menubar">
+        <span class="menu-item">File</span>
+        <span class="menu-item">Edit</span>
+        <span class="menu-item">Help</span>
+      </div>
+      <div class="window-body paint-body">
+        <div class="paint-toolbar">
+          <div class="paint-tools-box">
+            <div class="paint-tools-row">
+              <button class="paint-tool active" id="paint-brush" title="Brush">🖌️</button>
+              <button class="paint-tool" id="paint-eraser" title="Eraser">⬜</button>
+            </div>
+            <div class="paint-tools-row">
+              <button class="paint-tool" id="paint-clear" title="Clear">🗑️</button>
+              <button class="paint-tool" id="paint-save" title="Save">💾</button>
+            </div>
+          </div>
+          <div class="paint-sizes-box">
+            <button class="paint-size" data-size="2">●</button>
+            <button class="paint-size active" data-size="5">●</button>
+            <button class="paint-size" data-size="10">●</button>
+          </div>
+          <div class="paint-colors-box">
+            <div class="paint-colors" id="paint-colors">
+              <div class="paint-color active" data-color="#000000" style="background:#000000"></div>
+              <div class="paint-color" data-color="#808080" style="background:#808080"></div>
+              <div class="paint-color" data-color="#800000" style="background:#800000"></div>
+              <div class="paint-color" data-color="#808000" style="background:#808000"></div>
+              <div class="paint-color" data-color="#008000" style="background:#008000"></div>
+              <div class="paint-color" data-color="#008080" style="background:#008080"></div>
+              <div class="paint-color" data-color="#000080" style="background:#000080"></div>
+              <div class="paint-color" data-color="#800080" style="background:#800080"></div>
+              <div class="paint-color" data-color="#ffffff" style="background:#ffffff"></div>
+              <div class="paint-color" data-color="#c0c0c0" style="background:#c0c0c0"></div>
+              <div class="paint-color" data-color="#ff0000" style="background:#ff0000"></div>
+              <div class="paint-color" data-color="#ffff00" style="background:#ffff00"></div>
+              <div class="paint-color" data-color="#00ff00" style="background:#00ff00"></div>
+              <div class="paint-color" data-color="#00ffff" style="background:#00ffff"></div>
+              <div class="paint-color" data-color="#0000ff" style="background:#0000ff"></div>
+              <div class="paint-color" data-color="#ff00ff" style="background:#ff00ff"></div>
+            </div>
+          </div>
+        </div>
+        <div class="paint-canvas-wrapper">
+          <canvas id="paint-canvas" width="400" height="280"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Winamp Music Player Window -->
+    <div class="win95-window hidden" id="window-winamp" data-title="Winamp">
+      <div class="window-titlebar">
+        <div class="window-titlebar-icon">🎵</div>
+        <span class="window-titlebar-text">Winamp</span>
+        <button class="window-minimize-btn" aria-label="Minimize">_</button>
+        <button class="window-close-btn" aria-label="Close">×</button>
+      </div>
+      <div class="window-body winamp-body">
+        <div class="window-loading" id="loading-winamp">
+          <div class="loading-text">Loading...</div>
+          <div class="loading-bar-container"><div class="loading-bar"></div></div>
+        </div>
+        <div class="window-content hidden" id="content-winamp">
+
+          <!-- === MAIN PLAYER === -->
+          <div class="wa-main">
+            <div class="wa-header">
+              <div class="wa-header-logo">WINAMP</div>
+              <div class="wa-header-btns">
+                <button class="wa-hbtn" id="wa-btn-eq-show" title="Toggle Equalizer">EQ</button>
+                <button class="wa-hbtn" id="wa-btn-pl-show" title="Toggle Playlist">PL</button>
+              </div>
+            </div>
+            <div class="wa-display">
+              <canvas class="wa-vis" id="wa-vis" width="76" height="50"></canvas>
+              <div class="wa-display-right">
+                <div class="wa-time-row">
+                  <div class="wa-time" id="winamp-time">0:00</div>
+                  <div class="wa-time-info">
+                    <div class="wa-kbps" id="track-bitrate">128</div>
+                    <div class="wa-khz" id="track-khz">44</div>
+                  </div>
+                </div>
+                <div class="wa-stereo-row">
+                  <span class="wa-mono-tag">MONO</span>
+                  <span class="wa-stereo-tag active">STEREO</span>
+                </div>
+              </div>
+            </div>
+            <div class="wa-songtitle-wrap">
+              <div class="wa-songtitle" id="track-title">*** WINAMP - IT REALLY WHIPS THE LLAMA'S ASS! ***</div>
+            </div>
+            <div class="wa-seekbar-wrap">
+              <input type="range" id="position-slider" class="wa-seekbar" min="0" max="100" value="0">
+            </div>
+            <div class="wa-vb-wrap">
+              <div class="wa-vol-label">VOL</div>
+              <input type="range" id="volume-slider" class="wa-vol-slider" min="0" max="100" value="80">
+              <div class="wa-bal-label">BAL</div>
+              <input type="range" id="balance-slider" class="wa-bal-slider" min="-100" max="100" value="0">
+            </div>
+            <div class="wa-controls">
+              <button class="wa-ctrl" id="btn-prev" title="Previous">⏮</button>
+              <button class="wa-ctrl wa-play" id="btn-play" title="Play">▶</button>
+              <button class="wa-ctrl" id="btn-pause" title="Pause">⏸</button>
+              <button class="wa-ctrl" id="btn-stop" title="Stop">⏹</button>
+              <button class="wa-ctrl" id="btn-next" title="Next">⏭</button>
+              <button class="wa-ctrl wa-eject" id="btn-eject" title="Open files">⏏</button>
+              <div class="wa-toggles">
+                <button class="wa-tog" id="btn-shuffle" title="Shuffle">SHUF</button>
+                <button class="wa-tog" id="btn-repeat" title="Repeat">REP</button>
+              </div>
+            </div>
+            <audio id="winamp-audio" preload="auto"></audio>
+          </div>
+
+          <!-- === EQUALIZER === -->
+          <div class="wa-eq" id="wa-eq">
+            <div class="wa-eq-header">
+              <span class="wa-eq-title">WINAMP EQUALIZER</span>
+              <div class="wa-eq-header-btns">
+                <button class="wa-eq-btn active" id="btn-eq-on">ON</button>
+                <button class="wa-eq-btn" id="btn-eq-auto">AUTO</button>
+              </div>
+            </div>
+            <div class="wa-eq-body">
+              <div class="wa-eq-preamp">
+                <span class="wa-eq-label">PREAMP</span>
+                <input type="range" class="wa-eq-slider" min="-12" max="12" value="0" style="writing-mode:vertical-lr;direction:rtl">
+              </div>
+              <div class="wa-eq-sep"></div>
+              <div class="wa-eq-bands">
+                <div class="wa-eq-band"><input type="range" class="wa-eq-slider" min="-12" max="12" value="2"  style="writing-mode:vertical-lr;direction:rtl"><span>60</span></div>
+                <div class="wa-eq-band"><input type="range" class="wa-eq-slider" min="-12" max="12" value="1"  style="writing-mode:vertical-lr;direction:rtl"><span>170</span></div>
+                <div class="wa-eq-band"><input type="range" class="wa-eq-slider" min="-12" max="12" value="0"  style="writing-mode:vertical-lr;direction:rtl"><span>310</span></div>
+                <div class="wa-eq-band"><input type="range" class="wa-eq-slider" min="-12" max="12" value="-1" style="writing-mode:vertical-lr;direction:rtl"><span>600</span></div>
+                <div class="wa-eq-band"><input type="range" class="wa-eq-slider" min="-12" max="12" value="-2" style="writing-mode:vertical-lr;direction:rtl"><span>1K</span></div>
+                <div class="wa-eq-band"><input type="range" class="wa-eq-slider" min="-12" max="12" value="0"  style="writing-mode:vertical-lr;direction:rtl"><span>3K</span></div>
+                <div class="wa-eq-band"><input type="range" class="wa-eq-slider" min="-12" max="12" value="2"  style="writing-mode:vertical-lr;direction:rtl"><span>6K</span></div>
+                <div class="wa-eq-band"><input type="range" class="wa-eq-slider" min="-12" max="12" value="3"  style="writing-mode:vertical-lr;direction:rtl"><span>12K</span></div>
+                <div class="wa-eq-band"><input type="range" class="wa-eq-slider" min="-12" max="12" value="3"  style="writing-mode:vertical-lr;direction:rtl"><span>14K</span></div>
+                <div class="wa-eq-band"><input type="range" class="wa-eq-slider" min="-12" max="12" value="2"  style="writing-mode:vertical-lr;direction:rtl"><span>16K</span></div>
+              </div>
+              <button class="wa-eq-presets-btn" id="btn-presets">PRESETS</button>
+            </div>
+          </div>
+
+          <!-- === PLAYLIST === -->
+          <div class="wa-pl" id="wa-pl">
+            <div class="wa-pl-header">
+              <span class="wa-pl-title">WINAMP PLAYLIST EDITOR</span>
+              <span class="wa-pl-time" id="wa-pl-time">-- 0:00</span>
+            </div>
+            <div class="wa-pl-tracks" id="playlist-tracks">
+              <div class="playlist-track" data-slot="1" data-path="winamp/Eminem - Without Me.mp3">
+                <span class="track-num">1.</span>
+                <span class="track-name">Eminem - Without Me</span>
+                <span class="track-time">4:30</span>
+              </div>
+              <div class="playlist-track" data-slot="2" data-path="winamp/Kylie Minogue - Can't Get You Out Of My Head .mp3">
+                <span class="track-num">2.</span>
+                <span class="track-name">Kylie Minogue - Can't Get You Out Of My Head</span>
+                <span class="track-time">3:55</span>
+              </div>
+              <div class="playlist-track" data-slot="3" data-path="winamp/Miss Jane - It's A Fine Day (ATB Radio Edit) .mp3">
+                <span class="track-num">3.</span>
+                <span class="track-name">Miss Jane - It's A Fine Day (ATB Radio Edit)</span>
+                <span class="track-time">5:03</span>
+              </div>
+            </div>
+            <div class="wa-pl-footer">
+              <div class="wa-pl-foot-left">
+                <button class="wa-pl-fbtn" id="btn-pl-add">ADD</button>
+                <button class="wa-pl-fbtn" id="btn-pl-rem">REM</button>
+                <button class="wa-pl-fbtn" id="btn-pl-sel">SEL</button>
+                <button class="wa-pl-fbtn" id="btn-pl-misc">MISC</button>
+              </div>
+              <div class="wa-pl-foot-right">
+                <button class="wa-pl-fbtn" id="btn-pl-list">LIST</button>
+                <button class="wa-pl-fbtn" id="btn-pl-opts">OPTS</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
     <!-- Clippy Assistant -->
     <div id="clippy" class="clippy hidden">
-      <div class="clippy-bubble" id="clippy-bubble">
+      <div class="clippy-bubble hidden" id="clippy-bubble">
         <div class="clippy-bubble-text">It looks like you're looking for a developer! Click here to open
           <strong>Internet Explorer</strong> and see my work!
         </div>
@@ -502,6 +877,18 @@
             <span class="start-icon">💣</span>
             <span>Minesweeper</span>
           </div>
+          <div class="start-menu-item" data-window="doom">
+            <span class="start-icon">👹</span>
+            <span>Freedoom</span>
+          </div>
+          <div class="start-menu-item" data-window="paint">
+            <span class="start-icon">🎨</span>
+            <span>Paint</span>
+          </div>
+          <div class="start-menu-item" data-window="winamp">
+            <span class="start-icon">🎵</span>
+            <span>Winamp</span>
+          </div>
           <div class="start-menu-separator"></div>
           <div class="start-menu-item" id="start-shutdown">
             <span class="start-icon">🔴</span>
@@ -518,16 +905,23 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/boot.js"></script>
-  <script src="js/windowManager.js"></script>
-  <script src="js/desktop.js"></script>
-  <script src="js/explorer.js"></script>
-  <script src="js/terminal.js"></script>
-  <script src="js/pong.js"></script>
-  <script src="js/easterEggs.js"></script>
-  <script src="js/clippy.js"></script>
-  <script src="js/minesweeper.js"></script>
-  <script src="js/app.js"></script>
+  <link rel="stylesheet" href="js-dos/js-dos.css?v=3">
+  <script src="js-dos/js-dos.js?v=3"></script>
+  <script src="js/boot.js?v=3"></script>
+  <script src="js/windowManager.js?v=3"></script>
+  <script src="js/desktop.js?v=2"></script>
+  <script src="js/explorer.js?v=2"></script>
+  <script src="js/terminal.js?v=2"></script>
+  <script src="js/pong.js?v=2"></script>
+  <script src="js/easterEggs.js?v=2"></script>
+  <script src="js/clippy.js?v=6"></script>
+  <script src="js/minesweeper.js?v=2"></script>
+  <script src="js/snake.js"></script>
+  <script src="js/spaceinvaders.js"></script>
+  <script src="js/doom.js?v=3"></script>
+  <script src="js/paint.js?v=2"></script>
+  <script src="js/winamp.js?v=2"></script>
+  <script src="js/app.js?v=2"></script>
 </body>
 
 </html>

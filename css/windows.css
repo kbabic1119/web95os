@@ -519,6 +519,10 @@
    Internet Explorer
    ============================================ */
 
+#window-ie {
+  width: 520px !important;
+}
+
 .ie-toolbar {
   display: flex;
   align-items: center;
@@ -671,6 +675,120 @@
 }
 
 /* ============================================
+   Google Page (IE homepage)
+   ============================================ */
+
+.google-page {
+  background: #fff;
+  min-height: 320px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+}
+
+.google-top-links {
+  text-align: right;
+  padding: 4px 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.google-link {
+  color: #00c;
+  font-size: 11px;
+  margin-left: 8px;
+  text-decoration: none;
+}
+.google-link:hover { text-decoration: underline; }
+
+.google-new {
+  color: #c00;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.google-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+}
+
+.google-logo {
+  font-size: 64px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  letter-spacing: -2px;
+  line-height: 1;
+}
+.g-blue   { color: #3366cc; }
+.g-red    { color: #cc0000; }
+.g-yellow { color: #ffcc00; }
+.g-green  { color: #009900; }
+
+.google-beta {
+  color: #c00;
+  font-size: 11px;
+  font-style: italic;
+  margin-top: -4px;
+  margin-bottom: 14px;
+  align-self: flex-end;
+  margin-right: calc(50% - 110px);
+}
+
+.google-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.google-input {
+  width: 280px;
+  height: 22px;
+  border: 1px solid #999;
+  font-size: 13px;
+  padding: 2px 4px;
+  font-family: Arial, sans-serif;
+}
+
+.google-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.google-btn {
+  background: #dcdcdc;
+  border: 1px solid #999;
+  padding: 3px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+}
+.google-btn:hover { background: #c8c8c8; }
+.google-btn:active { border: 1px inset #999; }
+
+.google-lang {
+  margin-top: 16px;
+  text-align: center;
+  color: #444;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.google-small { font-size: 11px; }
+
+.google-footer {
+  text-align: center;
+  color: #444;
+  font-size: 11px;
+  padding: 16px;
+  border-top: 1px solid #ccc;
+  margin-top: 20px;
+}
+
+/* ============================================
    Minesweeper
    ============================================ */
 
@@ -811,4 +929,552 @@
 
 .ms-cell .ms-num-8 {
   color: #808080;
+}
+
+/* ============================================
+   Winamp 2.x Classic Skin
+   ============================================ */
+
+#window-winamp { width: 275px !important; }
+
+.winamp-body { padding: 0; background: #000; }
+
+/* === MAIN PLAYER — authentic Winamp Classic skin === */
+.wa-main {
+  background: #1c1c1c;
+  width: 275px;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  user-select: none;
+  border-bottom: 2px solid #000;
+}
+
+/* Real skin header: 275px wide × 14px tall from MAIN.BMP row 0 */
+.wa-header {
+  background-image: url('../img/winamp-main.png');
+  background-size: 275px 116px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 4px;
+  height: 14px;
+  border-bottom: none;
+}
+
+/* Hide the text logo — skin image already shows it */
+.wa-header-logo { display: none; }
+
+.wa-header-btns { display: flex; gap: 2px; }
+
+.wa-hbtn {
+  background: transparent;
+  border: 1px solid #4a8a9a;
+  color: #b0d8e8;
+  font-size: 7px;
+  width: 22px;
+  height: 12px;
+  cursor: pointer;
+  padding: 0;
+  font-weight: bold;
+}
+.wa-hbtn:hover { background: rgba(90,170,200,0.3); color: #fff; }
+.wa-hbtn:active { background: rgba(0,0,0,0.4); }
+
+.wa-display {
+  display: flex;
+  gap: 0;
+  background: #000;
+  padding: 4px;
+}
+
+.wa-vis {
+  width: 76px;
+  height: 50px;
+  background: #000;
+  flex-shrink: 0;
+  display: block;
+}
+
+.wa-display-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 6px;
+  gap: 4px;
+}
+
+.wa-time-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.wa-time {
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px #00cc00;
+  line-height: 1;
+  min-width: 60px;
+}
+
+.wa-time-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-top: 2px;
+}
+
+.wa-kbps, .wa-khz {
+  color: #00bb00;
+  font-size: 8px;
+  font-family: 'Courier New', monospace;
+  text-shadow: 0 0 3px #009900;
+  line-height: 1.3;
+}
+
+.wa-stereo-row { display: flex; gap: 4px; }
+
+.wa-mono-tag, .wa-stereo-tag {
+  color: #1a4a1a;
+  font-size: 8px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  border: 1px solid #1a3a1a;
+  padding: 0 3px;
+  line-height: 1.4;
+}
+.wa-stereo-tag.active {
+  color: #00ff00;
+  border-color: #00aa00;
+  text-shadow: 0 0 4px #00ff00;
+}
+
+.wa-songtitle-wrap {
+  background: #000;
+  overflow: hidden;
+  padding: 2px 4px;
+  height: 16px;
+  border-top: 1px solid #111;
+  border-bottom: 1px solid #111;
+}
+
+.wa-songtitle {
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  white-space: nowrap;
+  animation: wa-marquee 18s linear infinite;
+  text-shadow: 0 0 3px #00cc00;
+  line-height: 1.4;
+}
+
+@keyframes wa-marquee {
+  0%   { transform: translateX(100%); }
+  100% { transform: translateX(-300%); }
+}
+
+.wa-seekbar-wrap {
+  padding: 4px 4px 2px;
+  background: #232323;
+}
+
+.wa-seekbar {
+  width: 100%;
+  height: 10px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(90deg, #2a4a00, #6a9a00, #b0c800);
+  border: 1px solid #111;
+  cursor: pointer;
+  box-sizing: border-box;
+  outline: none;
+}
+.wa-seekbar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 11px;
+  height: 18px;
+  background: linear-gradient(180deg, #b0b0b0, #888888);
+  border: 1px outset #cccccc;
+  cursor: pointer;
+}
+.wa-seekbar::-moz-range-thumb {
+  width: 11px;
+  height: 18px;
+  background: linear-gradient(180deg, #b0b0b0, #888888);
+  border: 1px outset #cccccc;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.wa-vb-wrap {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 4px 4px;
+  background: #232323;
+}
+
+.wa-vol-label, .wa-bal-label {
+  color: #666;
+  font-size: 8px;
+  font-weight: bold;
+  min-width: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.wa-vol-slider, .wa-bal-slider {
+  flex: 1;
+  height: 8px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(90deg, #004400, #009900, #00ff00);
+  border: 1px solid #111;
+  cursor: pointer;
+  outline: none;
+}
+.wa-vol-slider::-webkit-slider-thumb,
+.wa-bal-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 9px;
+  height: 14px;
+  background: linear-gradient(180deg, #aaa, #777);
+  border: 1px outset #ccc;
+  cursor: pointer;
+}
+.wa-vol-slider::-moz-range-thumb,
+.wa-bal-slider::-moz-range-thumb {
+  width: 9px;
+  height: 14px;
+  background: linear-gradient(180deg, #aaa, #777);
+  border: 1px outset #ccc;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+.wa-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  background: #2a2a2a;
+  border-top: 1px solid #1a1a1a;
+}
+
+.wa-ctrl {
+  width: 26px;
+  height: 22px;
+  background: linear-gradient(180deg, #484848, #282828);
+  border: 1px outset #666;
+  color: #cccccc;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.wa-ctrl:hover { background: linear-gradient(180deg, #585858, #383838); }
+.wa-ctrl:active { border-style: inset; background: linear-gradient(180deg, #282828, #484848); }
+
+.wa-play  { color: #00ff00; font-size: 13px; }
+.wa-eject { color: #aaaaaa; }
+
+.wa-toggles { display: flex; gap: 2px; margin-left: auto; }
+
+.wa-tog {
+  height: 16px;
+  background: #1a1a1a;
+  border: 1px inset #2a2a2a;
+  color: #555;
+  font-size: 7px;
+  cursor: pointer;
+  padding: 0 3px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+}
+.wa-tog:hover { color: #aaa; }
+.wa-tog.active { color: #00ff00; border-color: #00aa00; text-shadow: 0 0 3px #00ff00; }
+
+#winamp-audio { display: none; }
+
+/* === EQUALIZER === */
+.wa-eq {
+  background: #232323;
+  border-top: 2px solid #000;
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  user-select: none;
+}
+
+.wa-eq-header {
+  background: linear-gradient(90deg, #1a3a4a 0%, #2a5a6a 40%, #1a3a4a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 4px;
+}
+
+.wa-eq-title {
+  color: #8accd8;
+  font-size: 8px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 4px #4a9ab0;
+}
+
+.wa-eq-header-btns { display: flex; gap: 2px; }
+
+.wa-eq-btn {
+  background: #152a36;
+  border: 1px solid #2a5a6a;
+  color: #4a7a8a;
+  font-size: 7px;
+  width: 26px;
+  height: 13px;
+  cursor: pointer;
+  padding: 0;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+.wa-eq-btn:hover { background: #1e4a5e; color: #8accd8; }
+.wa-eq-btn.active { color: #00ff00; border-color: #006633; text-shadow: 0 0 3px #00ff00; }
+
+.wa-eq-body {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  padding: 4px;
+  background: #1a1a1a;
+}
+
+.wa-eq-preamp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.wa-eq-label {
+  color: #666;
+  font-size: 6px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  letter-spacing: 0.5px;
+}
+
+.wa-eq-sep {
+  width: 1px;
+  height: 55px;
+  background: #3a3a3a;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+.wa-eq-bands {
+  display: flex;
+  gap: 2px;
+  flex: 1;
+  justify-content: space-around;
+}
+
+.wa-eq-band {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.wa-eq-band span {
+  color: #666;
+  font-size: 6px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.wa-eq-slider {
+  width: 14px;
+  height: 55px;
+  cursor: pointer;
+  accent-color: #e8cc00;
+  background: transparent;
+}
+
+.wa-eq-presets-btn {
+  background: linear-gradient(180deg, #3a3a3a, #242424);
+  border: 1px outset #555;
+  color: #aaa;
+  font-size: 7px;
+  width: 14px;
+  height: 55px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  writing-mode: vertical-lr;
+  padding: 0;
+  align-self: flex-end;
+  letter-spacing: 1px;
+}
+.wa-eq-presets-btn:hover { color: #ddd; }
+.wa-eq-presets-btn:active { border-style: inset; }
+
+/* === PLAYLIST === */
+.wa-pl {
+  background: #000;
+  border-top: 2px solid #000;
+  font-family: Arial, sans-serif;
+  user-select: none;
+}
+
+.wa-pl-header {
+  background: linear-gradient(90deg, #1a3a4a 0%, #2a5a6a 40%, #1a3a4a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 4px;
+}
+
+.wa-pl-title {
+  color: #8accd8;
+  font-size: 8px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 4px #4a9ab0;
+}
+
+.wa-pl-time {
+  color: #00bb00;
+  font-family: 'Courier New', monospace;
+  font-size: 8px;
+}
+
+.wa-pl-tracks {
+  background: #000;
+  min-height: 60px;
+  max-height: 110px;
+  overflow-y: auto;
+}
+
+.playlist-track {
+  display: flex;
+  gap: 6px;
+  padding: 2px 6px;
+  color: #00cc00;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #080808;
+}
+.playlist-track:hover { background: #001800; }
+.playlist-track.active { background: #000088; color: #ffffff; }
+
+.track-num { min-width: 18px; color: #008800; flex-shrink: 0; }
+.playlist-track.active .track-num { color: #aaaaff; }
+
+.track-name { flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+
+.track-time { color: #008800; min-width: 35px; text-align: right; flex-shrink: 0; }
+.playlist-track.active .track-time { color: #aaaaff; }
+
+.wa-pl-footer {
+  background: #1a1a1a;
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 4px;
+  border-top: 1px solid #2a2a2a;
+}
+
+.wa-pl-foot-left, .wa-pl-foot-right { display: flex; gap: 2px; }
+
+.wa-pl-fbtn {
+  background: linear-gradient(180deg, #383838, #202020);
+  border: 1px outset #555;
+  color: #aaa;
+  font-size: 7px;
+  height: 16px;
+  cursor: pointer;
+  padding: 0 5px;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+}
+.wa-pl-fbtn:hover { color: #ddd; }
+.wa-pl-fbtn:active { border-style: inset; }
+
+.wa-pl-tracks::-webkit-scrollbar { width: 8px; }
+.wa-pl-tracks::-webkit-scrollbar-track { background: #000; }
+.wa-pl-tracks::-webkit-scrollbar-thumb { background: #2a4a5a; border: 1px outset #3a6a7a; }
+
+/* ============================================
+   Mobile Responsiveness
+   ============================================ */
+
+@media (max-width: 600px) {
+  /* All windows fill screen width */
+  .win95-window {
+    width: calc(100vw - 20px) !important;
+    max-height: calc(100vh - 54px);
+  }
+
+  /* Bigger touch targets on title bar buttons */
+  .window-minimize-btn,
+  .window-close-btn {
+    width: 26px;
+    height: 22px;
+    font-size: 13px;
+  }
+
+  /* Content areas: allow vertical scroll */
+  .window-content {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Terminal: full width input */
+  #terminal-input {
+    min-width: 0;
+    width: 100%;
+  }
+
+  /* Explorer: stack file list vertically */
+  .explorer-body {
+    flex-direction: column;
+  }
+
+  .explorer-sidebar {
+    width: 100%;
+    max-height: 120px;
+    border-right: none;
+    border-bottom: 2px solid var(--win95-dark);
+    overflow-y: auto;
+  }
+
+  /* Paint: hide toolbar on mobile (canvas still works) */
+  .paint-toolbar {
+    flex-wrap: wrap;
+  }
+
+  /* DOOM controls: hide keyboard reference on mobile (keyboard not available) */
+  .doom-keys {
+    display: none;
+  }
+
+  /* Winamp: restore to natural width */
+  #window-winamp {
+    width: calc(100vw - 20px) !important;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  /* Tablet: cap window width */
+  .win95-window {
+    max-width: 90vw;
+  }
 }

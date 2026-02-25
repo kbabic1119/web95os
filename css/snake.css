@@ -1,0 +1,25 @@
+#window-snake {
+  width: 420px !important;
+}
+
+.snake-body {
+  padding: 0;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+}
+
+#snake-canvas {
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.snake-controls {
+  background: #000;
+  color: #555;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  text-align: center;
+  padding: 4px;
+}

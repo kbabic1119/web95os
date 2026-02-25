@@ -1,3 +1,10 @@
+# Dependencies
+node_modules/
+
+# Test files
+test*.html
+test*.js
+
 # Logs
 logs/
 *.log
@@ -11,3 +18,14 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Large game files not needed for web (raw WADs, old zips)
+games/doom.wad
+games/freedoom-0.12.1/
+games/freedoom-0.12.1.zip
+games/freedoom-bundle/
+games/js-dos-doom.zip
+games/doom-web.zip
+games/repack-doom.py
+games/doom/doom.wad
+games/create-bundle.bat

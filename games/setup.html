@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freedoom Setup - web95os</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #008080;
+            padding: 40px;
+            color: #fff;
+        }
+        .window {
+            background: #c0c0c0;
+            border: 2px solid #fff;
+            border-right-color: #000;
+            border-bottom-color: #000;
+            padding: 2px;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #000;
+        }
+        .titlebar {
+            background: #000080;
+            color: #fff;
+            padding: 4px 8px;
+            font-weight: bold;
+        }
+        .content {
+            padding: 20px;
+        }
+        h1 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 14px;
+            margin-top: 20px;
+            background: #000080;
+            color: #fff;
+            padding: 4px 8px;
+        }
+        ol, ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        li {
+            margin: 5px 0;
+        }
+        a {
+            color: #000080;
+        }
+        .btn {
+            background: #c0c0c0;
+            border: 2px solid #fff;
+            border-right-color: #000;
+            border-bottom-color: #000;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .btn:active {
+            border: 2px solid #000;
+            border-right-color: #fff;
+            border-bottom-color: #fff;
+        }
+        code {
+            background: #000;
+            color: #0f0;
+            padding: 2px 6px;
+        }
+        .note {
+            background: #ffff00;
+            color: #000;
+            padding: 10px;
+            margin: 15px 0;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="titlebar">Freedoom Setup Instructions</div>
+        <div class="content">
+            <h1>🎮 Freedoom Setup for web95os</h1>
+            
+            <div class="note">
+                ⚠️ <strong>Important:</strong> The JS-DOS CDN is blocked in your region. Follow these steps to manually download Freedoom.
+            </div>
+            
+            <h2>Step 1: Download Freedoom JS-DOS Bundle</h2>
+            <p>Download from one of these sources:</p>
+            <ol>
+                <li><strong>GitHub (Recommended):</strong><br>
+                    <a href="https://github.com/freedoom/freedoom/releases" target="_blank">https://github.com/freedoom/freedoom/releases</a></li>
+                <li><strong>Official Site:</strong><br>
+                    <a href="https://freedoom.github.io/download.html" target="_blank">https://freedoom.github.io/download.html</a></li>
+            </ol>
+            
+            <h2>Step 2: Create JS-DOS Bundle</h2>
+            <p>The easiest way is to use a pre-made JS-DOS Doom bundle:</p>
+            <ol>
+                <li>Download: <code>doom.zip</code> from js-dos CDN</li>
+                <li>Try this direct link: <a href="https://cdn.js-dos.com/8.3.15/current/wasm/doom.zip" target="_blank">Download doom.zip</a></li>
+                <li>Rename to <code>freedoom.zip</code></li>
+                <li>Place in <code>web95os/games/freedoom.zip</code></li>
+            </ol>
+            
+            <h2>Step 3: Verify Setup</h2>
+            <p>Your folder structure should look like:</p>
+            <ul>
+                <li><code>web95os/</code>
+                    <ul>
+                        <li><code>games/</code>
+                            <ul>
+                                <li><code>freedoom.zip</code> ← The game file</li>
+                            </ul>
+                        </li>
+                        <li><code>js/doom.js</code></li>
+                        <li><code>index.html</code></li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h2>Step 4: Test the Game</h2>
+            <ol>
+                <li>Open <code>index.html</code> in your browser</li>
+                <li>Click the <strong>👹 Freedoom</strong> desktop icon</li>
+                <li>Click <strong>Start Game</strong></li>
+                <li>Enjoy playing!</li>
+            </ol>
+            
+            <h2>🎮 Controls</h2>
+            <ul>
+                <li><strong>Arrow Keys</strong> - Move / Turn</li>
+                <li><strong>CTRL</strong> - Shoot</li>
+                <li><strong>SPACE</strong> - Open doors</li>
+                <li><strong>ESC</strong> - Menu / Pause</li>
+            </ul>
+            
+            <div class="note">
+                ✅ <strong>Freedoom is 100% free and open-source!</strong><br>
+                No copyright issues. Safe to host on GitHub Pages.
+            </div>
+            
+            <button class="btn" onclick="window.close()">Close</button>
+        </div>
+    </div>
+</body>
+</html>
