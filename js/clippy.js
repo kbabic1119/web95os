@@ -64,10 +64,11 @@ const Clippy = {
     // Show greeting on first appearance
     this.showTip("If you recognize everything on this desktop — you're an absolute legend. Welcome back to 1995. 🏆", false);
 
-    // Rotate generic tips every 30s when bubble is hidden
+    // Rotate generic tips every 30s — only when bubble is hidden AND no windows are open
     this.tipTimer = setInterval(() => {
       const bubble = document.getElementById('clippy-bubble');
-      if (bubble && bubble.classList.contains('hidden')) {
+      const anyWindowOpen = document.querySelectorAll('.win95-window:not(.hidden)').length > 0;
+      if (bubble && bubble.classList.contains('hidden') && !anyWindowOpen) {
         this.showRandomTip();
       }
     }, 30000);

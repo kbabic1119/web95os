@@ -56,6 +56,10 @@ class Doom {
 
       this.running = true;
 
+      // Hide the info/controls box — game is running now
+      const controls = document.querySelector('.doom-controls');
+      if (controls) controls.style.display = 'none';
+
     } catch (error) {
       console.error('Failed to load Freedoom:', error);
       document.getElementById('content-doom').innerHTML = `

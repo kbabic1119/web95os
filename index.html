@@ -948,20 +948,64 @@
   <script src="js/winamp.js?v=2"></script>
   <script src="js/app.js?v=2"></script>
   <script>
-    // DOOM mobile button touch → keydown/keyup on document
+    // DOOM mobile button touch → keydown/keyup on window (js-dos listens on window)
     (function() {
       function doomKey(key, keyCode, down) {
         const type = down ? 'keydown' : 'keyup';
-        document.dispatchEvent(new KeyboardEvent(type, {
+        window.dispatchEvent(new KeyboardEvent(type, {
           key, keyCode, which: keyCode, bubbles: true, cancelable: true
         }));
       }
+
+      // Buttons: touchstart/touchend hold the key
       document.querySelectorAll('.doom-mobile-btn').forEach(btn => {
         const key = btn.dataset.key;
         const keyCode = parseInt(btn.dataset.keycode, 10);
         btn.addEventListener('touchstart', (e) => { e.preventDefault(); doomKey(key, keyCode, true); },  { passive: false });
         btn.addEventListener('touchend',   (e) => { e.preventDefault(); doomKey(key, keyCode, false); }, { passive: false });
       });
+
+      // Swipe on game screen: left/right → turn, tap → fire (Ctrl)
+      const doomPlayer = document.getElementById('doom-player');
+      if (doomPlayer) {
+        let touchStartX = 0, touchStartY = 0, swipeKey = null;
+        const SWIPE_THRESHOLD = 30;
+
+        doomPlayer.addEventListener('touchstart', (e) => {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+          swipeKey = null;
+        }, { passive: true });
+
+        doomPlayer.addEventListener('touchmove', (e) => {
+          e.preventDefault();
+          const dx = e.touches[0].clientX - touchStartX;
+          const dy = e.touches[0].clientY - touchStartY;
+          if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+            const newKey = dx < 0 ? 'ArrowLeft' : 'ArrowRight';
+            const newCode = dx < 0 ? 37 : 39;
+            if (swipeKey !== newKey) {
+              if (swipeKey) doomKey(swipeKey, swipeKey === 'ArrowLeft' ? 37 : 39, false);
+              swipeKey = newKey;
+              doomKey(newKey, newCode, true);
+            }
+          }
+        }, { passive: false });
+
+        doomPlayer.addEventListener('touchend', (e) => {
+          const dx = Math.abs(e.changedTouches[0].clientX - touchStartX);
+          const dy = Math.abs(e.changedTouches[0].clientY - touchStartY);
+          if (swipeKey) {
+            // Release held turn key
+            doomKey(swipeKey, swipeKey === 'ArrowLeft' ? 37 : 39, false);
+            swipeKey = null;
+          } else if (dx < SWIPE_THRESHOLD && dy < SWIPE_THRESHOLD) {
+            // Short tap = fire (Ctrl)
+            doomKey('Control', 17, true);
+            setTimeout(() => doomKey('Control', 17, false), 80);
+          }
+        }, { passive: true });
+      }
     })();
   </script>
 </body>
