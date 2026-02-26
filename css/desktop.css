@@ -857,6 +857,27 @@
   font-weight: bold;
 }
 
+@media (max-width: 600px) {
+  #window-doom {
+    width: 100% !important;
+  }
+
+  .doom-container {
+    padding: 0;
+    align-items: flex-start;
+    height: 62.5vw; /* 400/640 * 100vw — matches scaled player height */
+    overflow: hidden;
+  }
+
+  #doom-player {
+    transform-origin: top left;
+    transform: scale(calc(100vw / 640));
+    width: 640px !important;
+    height: 400px !important;
+    flex-shrink: 0;
+  }
+}
+
 /* ============================================
    Mobile Responsiveness
    ============================================ */
