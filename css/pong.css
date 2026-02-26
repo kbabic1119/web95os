@@ -32,3 +32,14 @@
   padding: 4px;
   width: 100%;
 }
+
+@media (max-width: 600px) {
+  #window-pong {
+    width: 100% !important;
+  }
+
+  #pong-canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+}

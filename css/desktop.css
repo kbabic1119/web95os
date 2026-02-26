@@ -908,6 +908,8 @@
 
   .clippy-character {
     font-size: 36px;
+    animation: none;
+    filter: none;
   }
 
   .clippy-bubble {

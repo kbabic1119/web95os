@@ -152,7 +152,7 @@ const Clippy = {
 
   showRandomTip() {
     const tip = this.genericTips[Math.floor(Math.random() * this.genericTips.length)];
-    this.showTip(tip, true);
+    this.showTip(tip, false);
   },
 
   showTip(html, clickOpensIE) {

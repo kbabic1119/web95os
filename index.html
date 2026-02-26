@@ -388,6 +388,10 @@
             <p class="secrets-line">>&nbsp;Isn't it, Mr. Anderson?</p>
             <p class="secrets-line">&nbsp;</p>
             <p class="secrets-line flicker">>&nbsp;FOLLOW THE WHITE RABBIT_</p>
+            <p class="secrets-line">&nbsp;</p>
+            <p class="secrets-line" style="text-align:center;">
+              <button class="win95-btn" onclick="EasterEggs.startMatrixRain()" style="font-family:'Courier New',monospace;letter-spacing:2px;">[ MATRIX ]</button>
+            </p>
           </div>
         </div>
       </div>
@@ -639,6 +643,19 @@
                 <small><kbd>ESC</kbd> Menu</small>
               </div>
               <button class="win95-btn" id="doom-start">Start Game</button>
+            </div>
+            <!-- Mobile controls -->
+            <div class="doom-mobile-btns game-mobile-btns">
+              <div class="doom-btn-grid">
+                <button class="doom-mobile-btn" data-key="ArrowLeft" data-keycode="37">◄ TURN</button>
+                <button class="doom-mobile-btn" data-key="w"         data-keycode="87">▲ FWD</button>
+                <button class="doom-mobile-btn" data-key="ArrowRight" data-keycode="39">TURN ►</button>
+                <button class="doom-mobile-btn doom-btn-fire" data-key="Control" data-keycode="17">🔥 FIRE</button>
+                <button class="doom-mobile-btn" data-key="a"         data-keycode="65">◄ STR</button>
+                <button class="doom-mobile-btn" data-key="s"         data-keycode="83">▼ BCK</button>
+                <button class="doom-mobile-btn" data-key="d"         data-keycode="68">STR ►</button>
+                <button class="doom-mobile-btn doom-btn-use"  data-key=" "         data-keycode="32">☐ USE</button>
+              </div>
             </div>
           </div>
         </div>
@@ -930,6 +947,23 @@
   <script src="js/paint.js?v=2"></script>
   <script src="js/winamp.js?v=2"></script>
   <script src="js/app.js?v=2"></script>
+  <script>
+    // DOOM mobile button touch → keydown/keyup on document
+    (function() {
+      function doomKey(key, keyCode, down) {
+        const type = down ? 'keydown' : 'keyup';
+        document.dispatchEvent(new KeyboardEvent(type, {
+          key, keyCode, which: keyCode, bubbles: true, cancelable: true
+        }));
+      }
+      document.querySelectorAll('.doom-mobile-btn').forEach(btn => {
+        const key = btn.dataset.key;
+        const keyCode = parseInt(btn.dataset.keycode, 10);
+        btn.addEventListener('touchstart', (e) => { e.preventDefault(); doomKey(key, keyCode, true); },  { passive: false });
+        btn.addEventListener('touchend',   (e) => { e.preventDefault(); doomKey(key, keyCode, false); }, { passive: false });
+      });
+    })();
+  </script>
 </body>
 
 </html>

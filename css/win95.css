@@ -264,3 +264,55 @@ body {
     border-bottom: 2px solid #fff;
   }
 }
+
+/* ============================================
+   DOOM Mobile Button Grid
+   ============================================ */
+
+.doom-mobile-btns {
+  padding: 8px;
+  background: #111;
+}
+
+.doom-btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 6px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+/* Fire spans row 1 col 4, Use spans row 2 col 4 */
+.doom-btn-fire { grid-column: 4; grid-row: 1; }
+.doom-btn-use  { grid-column: 4; grid-row: 2; }
+
+.doom-mobile-btn {
+  background: #c0c0c0;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: #000;
+  padding: 12px 4px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  text-align: center;
+}
+
+.doom-mobile-btn:active {
+  border-top: 2px solid #808080;
+  border-left: 2px solid #808080;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+}
+
+.doom-btn-fire { background: #c04040; color: #fff; }
+.doom-btn-fire:active { background: #a03030; }
+.doom-btn-use  { background: #4040c0; color: #fff; }
+.doom-btn-use:active  { background: #3030a0; }
