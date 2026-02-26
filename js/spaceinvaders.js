@@ -45,6 +45,29 @@ const SpaceInvaders = {
     document.addEventListener('keydown', this._boundKeyDown);
     document.addEventListener('keyup', this._boundKeyUp);
 
+    // Mobile: auto-fire and button controls
+    if ('ontouchstart' in window) {
+      this._keys[' '] = true;
+
+      const btnLeft = document.getElementById('si-btn-left');
+      const btnRight = document.getElementById('si-btn-right');
+      if (btnLeft && btnRight) {
+        this._siTL = () => { this._keys['ArrowLeft'] = true; };
+        this._siTLE = () => { this._keys['ArrowLeft'] = false; };
+        this._siTR = () => { this._keys['ArrowRight'] = true; };
+        this._siTRE = () => { this._keys['ArrowRight'] = false; };
+        btnLeft.addEventListener('touchstart', this._siTL, { passive: true });
+        btnLeft.addEventListener('touchend', this._siTLE);
+        btnRight.addEventListener('touchstart', this._siTR, { passive: true });
+        btnRight.addEventListener('touchend', this._siTRE);
+      }
+
+      this._siTouchRestart = (e) => {
+        if (this.gameOver) { e.preventDefault(); this.reset(); }
+      };
+      this.canvas.addEventListener('touchstart', this._siTouchRestart, { passive: false });
+    }
+
     this.reset();
     this.running = true;
     this.lastTs = 0;
@@ -64,6 +87,17 @@ const SpaceInvaders = {
     if (this._boundKeyUp) {
       document.removeEventListener('keyup', this._boundKeyUp);
       this._boundKeyUp = null;
+    }
+    if (this._siTL) {
+      const btnLeft = document.getElementById('si-btn-left');
+      const btnRight = document.getElementById('si-btn-right');
+      if (btnLeft) { btnLeft.removeEventListener('touchstart', this._siTL); btnLeft.removeEventListener('touchend', this._siTLE); }
+      if (btnRight) { btnRight.removeEventListener('touchstart', this._siTR); btnRight.removeEventListener('touchend', this._siTRE); }
+      this._siTL = this._siTLE = this._siTR = this._siTRE = null;
+    }
+    if (this._siTouchRestart) {
+      this.canvas.removeEventListener('touchstart', this._siTouchRestart);
+      this._siTouchRestart = null;
     }
     this._keys = {};
   },

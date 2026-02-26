@@ -61,6 +61,18 @@ const Pong = {
     // but better to attach to canvas container or document if dragging
     document.addEventListener('mousemove', this._mouseMove);
 
+    // Touch: drag finger on canvas to control paddle (same as mouse)
+    this._touchMove = (e) => {
+      e.preventDefault();
+      const rect = this.canvas.getBoundingClientRect();
+      const scaleY = this.canvas.height / rect.height;
+      this.mouseY = (e.touches[0].clientY - rect.top) * scaleY;
+    };
+    this._touchEnd = () => { this.mouseY = null; };
+    this.canvas.addEventListener('touchstart', this._touchMove, { passive: false });
+    this.canvas.addEventListener('touchmove', this._touchMove, { passive: false });
+    this.canvas.addEventListener('touchend', this._touchEnd);
+
     this.loop(performance.now());
   },
 
@@ -73,6 +85,11 @@ const Pong = {
     document.removeEventListener('keydown', this._keyDown);
     document.removeEventListener('keyup', this._keyUp);
     document.removeEventListener('mousemove', this._mouseMove);
+    if (this._touchMove) {
+      this.canvas.removeEventListener('touchstart', this._touchMove);
+      this.canvas.removeEventListener('touchmove', this._touchMove);
+      this.canvas.removeEventListener('touchend', this._touchEnd);
+    }
     this.keys = {};
     this.mouseY = null;
   },

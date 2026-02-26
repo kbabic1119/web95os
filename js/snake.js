@@ -26,6 +26,22 @@ const Snake = {
     this._boundKey = this.onKey.bind(this);
     document.addEventListener('keydown', this._boundKey);
 
+    // Mobile: left/right turn buttons + tap canvas to restart
+    if ('ontouchstart' in window) {
+      const btnLeft = document.getElementById('snake-btn-left');
+      const btnRight = document.getElementById('snake-btn-right');
+      if (btnLeft && btnRight) {
+        this._snakeTL = (e) => { e.preventDefault(); this.turnLeft(); };
+        this._snakeTR = (e) => { e.preventDefault(); this.turnRight(); };
+        btnLeft.addEventListener('touchstart', this._snakeTL, { passive: false });
+        btnRight.addEventListener('touchstart', this._snakeTR, { passive: false });
+      }
+      this._snakeTouchRestart = (e) => {
+        if (this.gameOver) { e.preventDefault(); this.reset(); }
+      };
+      this.canvas.addEventListener('touchstart', this._snakeTouchRestart, { passive: false });
+    }
+
     this.reset();
     this.running = true;
     this.animFrameId = requestAnimationFrame(ts => this.loop(ts));
@@ -41,6 +57,31 @@ const Snake = {
       document.removeEventListener('keydown', this._boundKey);
       this._boundKey = null;
     }
+    if (this._snakeTL) {
+      const btnLeft = document.getElementById('snake-btn-left');
+      const btnRight = document.getElementById('snake-btn-right');
+      if (btnLeft) btnLeft.removeEventListener('touchstart', this._snakeTL);
+      if (btnRight) btnRight.removeEventListener('touchstart', this._snakeTR);
+      this._snakeTL = this._snakeTR = null;
+    }
+    if (this._snakeTouchRestart) {
+      this.canvas.removeEventListener('touchstart', this._snakeTouchRestart);
+      this._snakeTouchRestart = null;
+    }
+  },
+
+  // Rotate 90° counter-clockwise relative to current direction
+  turnLeft() {
+    const d = this.nextDir;
+    const turned = { x: d.y, y: -d.x };
+    if (turned.x !== -this.dir.x || turned.y !== -this.dir.y) this.nextDir = turned;
+  },
+
+  // Rotate 90° clockwise relative to current direction
+  turnRight() {
+    const d = this.nextDir;
+    const turned = { x: -d.y, y: d.x };
+    if (turned.x !== -this.dir.x || turned.y !== -this.dir.y) this.nextDir = turned;
   },
 
   reset() {
