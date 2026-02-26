@@ -23,3 +23,14 @@
   text-align: center;
   padding: 4px;
 }
+
+@media (max-width: 600px) {
+  #window-snake {
+    width: 100% !important;
+  }
+
+  #snake-canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
